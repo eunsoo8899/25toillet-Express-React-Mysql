@@ -1,0 +1,15 @@
+node_modules/
+
+public/
+
+schemas/
+
+config/
+
+nginx/
+
+scripts/
+
+Dockerfile
+
+docker-compose.yml
