@@ -3,6 +3,7 @@ var router = express.Router();
 
 const db = require('../components/db')
 const model = require('../models/board');
+const date = require('../components/util')
 
 router.post('/',async function (req, res, next) {
     const body = req.body; // {name:asdf,price:200}
@@ -38,7 +39,7 @@ router.delete('/', async function (req, res, next) {
         const connection = await db.beginTransaction()
         const result = await model.delete(
                 connection, 
-                {board_idx:json.board_idx}
+                {users_id:json.users_id}
             )
         await db.commit(connection)
         res.json({result})  
@@ -50,8 +51,8 @@ router.delete('/', async function (req, res, next) {
 
 router.get('/',async function (req, res, next) {
     try {
-        const board_idx = req.query.board_idx
-        const result = await model.getList({board_idx:board_idx})
+        const users_id = req.query.users_id
+        const result = await model.getList({users_id:users_id})
         res.status(200).json({result})   
     } catch(err){
         console.log('err : ',err)

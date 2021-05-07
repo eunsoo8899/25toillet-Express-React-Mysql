@@ -13,34 +13,34 @@ module.exports.insert = async (connection, options) => {
 
 module.exports.update = async (connection, options) => {
     console.log('options : ',options) // {idx :2, name:'ssdf'}
-    let query = 'UPDATE board SET ? WHERE board_idx = ?'    
+    let query = 'UPDATE board SET ? WHERE users_id = ?'    
     return await db.query({
         connection:connection,
         query:query,
-        values: [options, options.board_idx]
+        values: [options, options.users_id]
     })  
 };
 
 module.exports.delete = async (connection, options) => {
     console.log('options : ',options.idx) // {idx :2, name:'ssdf'}
-    let query = 'DELETE FROM board WHERE board_idx = ?'    
+    let query = 'DELETE FROM board WHERE users_id = ?'    
     return await db.query({
         connection:connection,
         query:query,
-        values: options.board_idx
+        values: options.users_id
     })  
 };
 
 module.exports.getList = async (options) => {
     console.log('options : ',options)
     const {
-        board_idx
+        users_id
     } = options
     let query = 'SELECT * FROM board'
     let values;    
-    if(board_idx) {
-        query += ' WHERE board_idx = ?'
-        values = board_idx
+    if(users_id) {
+        query += ' WHERE users_id = ?'
+        values = users_id
     }
     return await db.query({
         // connection:connection,

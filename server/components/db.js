@@ -6,7 +6,8 @@ const pool  = mysql.createPool({
     host: config.database.host,
     user: config.database.user,
     password: config.database.password,
-    database: config.database.database
+    database: config.database.database,
+    dateStrings:'date'
 })
 
 
@@ -50,7 +51,7 @@ module.exports.query = async (options) => {
                     reject(error)
                 }
                 resolve(result)
-               
+            
             }
         )      
     })

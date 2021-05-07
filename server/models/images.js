@@ -13,6 +13,17 @@ module.exports.insert = async (connection, options) => {
     })  
 };
 
+module.exports.profile = async (connection, options) => {
+    console.log('options : ',options)    
+    let query = 'UPDATE users SET ? WHERE users_id = ?'
+    let values = options;        
+    return await db.query({
+        connection:connection,
+        query:query,
+        values:[options, options.users_id]
+    })  
+};
+
 module.exports.update = async (connection, options) => {
     console.log('options : ',options) // {idx :2, name:'ssdf'}
     let query = 'UPDATE images SET ? WHERE images_idx = ?'    
@@ -44,7 +55,8 @@ module.exports.getList = async (options) => {
     console.log('options : ',options)
     try {
         const {
-            users_idx
+            users_idx,
+            users_id
         } = options
         let query = 'SELECT * FROM images'
         let values;    
@@ -52,6 +64,11 @@ module.exports.getList = async (options) => {
             query += ' WHERE users_idx = ?'
             values = users_idx
         }
+        if(users_id) {
+            query += ' WHERE users_id = ?'
+            values = users_id
+        }
+        
         return await db.query({
             // connection:connection,
             query:query,
@@ -83,3 +100,18 @@ module.exports.multipleInsert = async (options, connection) => {
         throw new Error(e);
     }
 }
+
+module.exports.getRecently = async () => {    
+    try {        
+        let query = 'SELECT * FROM images order by images_idx DESC limit 0, 12'
+        let values;
+
+        return await db.query({
+            // connection:connection,
+            query:query,
+            values:values
+        })    
+    } catch (err) {
+        throw new Error(err)
+    }
+};

@@ -1,0 +1,169 @@
+.UploadPage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img_select_button {
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+}
+.SelectFileContainer {
+  width: 40%;
+  height: 600px;
+  border: 1px solid rgb(155, 155, 155);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.SelectFileContainer .top {
+  /* background-color: blueviolet; */
+  flex: 10%;
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  flex-direction: row;
+  color: gray;
+}
+
+.SelectFileContainer .top .leftSide {
+  flex: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-left: 15px;
+}
+
+.SelectFileContainer .top .rightSide {
+  flex: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 15px;
+}
+
+.SelectFileContainer .body:not(#Selected) {
+  /* background-color: pink; */
+  flex: 90%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.SelectFileContainer #Selected {
+  /* background-color: pink; */
+  flex: 90%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.SelectFileContainer .body h4 {
+  padding-bottom: 50px;
+}
+
+.SelectFileContainer .body .uploadBtn {
+  width: 120px;
+  height: 40px;
+  background-color: #075fd4;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-size: 17px;
+  display: grid;
+  place-items: center;
+}
+
+.SelectFileContainer .body .uploadBtn:hover {
+  cursor: pointer;
+}
+
+.SelectFileContainer .body .uploadBtn label {
+  cursor: pointer;
+}
+
+/* ------------------------UploadForm-------------------------------- */
+
+.uploadForm {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.uploadForm .titleContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.uploadForm .titleContainer input {
+  height: 50px;
+  border-radius: 6px;
+  border: 1px solid lightgray;
+  padding-left: 20px;
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+.uploadForm .titleContainer input:focus {
+  border: 1px solid blue;
+  outline: none;
+}
+
+.uploadForm .titleContainer label {
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.uploadForm .descriptionContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.uploadForm .descriptionContainer textarea {
+  height: 200px;
+  max-height: 200px;
+  min-height: 100px;
+  min-width: 50%;
+  max-width: 95%;
+  border-radius: 6px;
+  border: 1px solid lightgray;
+  padding-left: 15px;
+  padding-top: 15px;
+  font-size: 15px;
+  font-weight: 400;
+  margin-top: 5px;
+}
+
+.uploadForm .descriptionContainer textarea:focus {
+  border: 1px solid blue;
+  outline: none;
+}
+
+.uploadForm .categoryContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.uploadForm .categoryContainer input {
+  height: 50px;
+  border-radius: 6px;
+  border: 1px solid lightgray;
+  padding-left: 20px;
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+.uploadForm .categoryContainer input:focus {
+  border: 1px solid blue;
+  outline: none;
+}

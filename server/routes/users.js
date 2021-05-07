@@ -4,6 +4,7 @@ var router = express.Router();
 const db = require('../components/db')
 const model = require('../models/users');
 const crypto = require('../components/crypto');
+const users_img_model = require('../models/images')
 
 router.post('/signup',async function (req, res, next) {
     const body = req.body; 
@@ -15,8 +16,11 @@ router.post('/signup',async function (req, res, next) {
         // users id duplicate check
         const usersResult = await model.getList({users_id:body.users_id})
         if(usersResult.length > 0){
-            throw {status: 409, errorMessage: 'Duplicate users id'}            
-        }  
+            res.status(404).json('중복되는 아이디가 있습니다.')            
+        } else if (body.users_pwd !== body.users_pwd_confirm){
+            res.status(404).json('비밀번호가 일치하지 않습니다.')
+        }
+        delete body.users_pwd_confirm
 
         const {salt, encodedPw} = crypto.createPasswordPbkdf2(body.users_pwd)
         console.log('salt length : ', salt.length)
@@ -24,38 +28,7 @@ router.post('/signup',async function (req, res, next) {
         body.salt = salt
         body.users_pwd = encodedPw
 
-        const result = await model.insert(connection, body)
-        
-        // // get usersId
-        // const users_idx = result.insertId
-        // if(images && images.length > 0){
-        //     // for(let i=0;i<images.length;i++){
-        //     //     let imgObj = {
-        //     //         users_idx:users_idx, // "users_idx":5,
-        //     //         img_path:images[i] // "img_path":"images/5/광고1.png"
-        //     //     }
-        //     //     await users_img_model.insert(connection, imgObj)
-        //     // }
-
-        //     // users_img multi insert
-        //     let imagesArray = []
-        //     for(let i=0;i<images.length;i++){
-        //         imagesArray.push([
-        //             users_idx,
-        //             images[i]
-        //         ])            
-        //     } // [[1, "path1"],[1,"path2"],[1,"path3"]]
-        //     await users_img_model.multipleInsert(connection, imagesArray)
-        // }        
-
- 
-        // if(deliv_info && deliv_info.length > 0){
-        //     for(let i=0;i<deliv_info.length;i++){
-        //         let diObj = deliv_info[i]
-        //         diObj.users_idx = users_idx                
-        //         await deliv_info_model.insert(connection, diObj)
-        //     }    
-        // }        
+        const result = await model.insert(connection, body)        
 
         await db.commit(connection)
         res.json({result})        
@@ -66,55 +39,83 @@ router.post('/signup',async function (req, res, next) {
 })
 
 router.post('/signin',async function (req, res, next) {
-  console.log('signin')
-  const body = req.body; // {name:asdf,price:200}
-  console.log('body : ', body)
-  try {      
+    console.log('signin')
+    const body = req.body;
+    
+    //! find users_id
+    try {      
       const result = await model.getList({users_id:body.users_id}) // [{ users_id:test1, users_pwd:123}]
-      if(result.length == 0){
-          throw {status: 404, errorMessage: 'users not found'}
-      } 
-      let newResult = result[0]
+    if(result.length == 0){
+        // throw {status: 404, errorMessage: 'users not found'}
+        res.status(404).json('아이디를 확인 해 주세요.')
+    }
+
+    let newResult = result[0]    
       //newResult.users_pwd : 가입시 입력한 비밀번호 + db에 저장된 salt
-      const encodedPw = crypto.getPasswordPbkdf2(body.users_pwd, newResult.salt)
+    const encodedPw = crypto.getPasswordPbkdf2(body.users_pwd, newResult.salt)
       //encodedPw : 로그인시 입력한 비밀번호 + db에 저장된 salt
 
-      if (newResult.users_pwd === encodedPw) { 
-          console.log('Authentication succeed')           
-      } else {
-          throw {status: 401, errorMessage: 'Authentication failed'}
-      }
+    //! maching password
+    if (newResult.users_pwd === encodedPw) { 
+        console.log('Login succeed')
+        req.session.user = result
+        console.log(req.session)
+        res.send(result)
+    } else {
+        // throw {status: 401, message: 'Login failed'}
+        res.status(401).json('비밀번호가 틀렸습니다.')      
+        
+    }    
+    delete newResult.users_pwd
+    delete newResult.salt
     
-      delete newResult.users_pwd
-      delete newResult.salt
-      res.json({result:newResult})        
-  } catch(err){
-      console.log('err : ',err)
-      next(err)
-  }
+    } catch(err){
+        console.log('err : ',err)
+        next(err)
+    }
 })
 
 router.get('/',async function (req, res, next) {
     try {      
-        const users_idx = req.query.users_idx
-        const result = await model.getList({users_idx:users_idx})
+        const users_id = req.query.users_id
+        const result = await model.getList({users_id:users_id})
         if(result.length == 0){
             throw {status: 404, errorMessage: 'users not found'}
-        } 
-        const imgResult = await users_img_model.getList({users_idx:users_idx})
+        }        
+        const imgResult = await users_img_model.getList({users_id:users_id})
         result[0].images = imgResult
 
-        const diResult = await deliv_info_model.getList({users_idx:users_idx})
-        result[0].deliv_info = diResult
+        // const diResult = await deliv_info_model.getList({users_idx:users_idx})
+        // result[0].deliv_info = diResult
 
         delete result[0].users_pwd
         delete result[0].salt
+        delete result[0].users_idx
         res.status(200).json({result:result[0]})   
     } catch(err){
         console.log('err : ',err)
         next(err)
     }
 })
+
+router.get('/signin',(req, res) => {
+    if (req.session.user) {
+        res.send({loggedIn: true, user: req.session.user })
+        // console.log(req.session)
+    } else {
+        res.send({loggedIn: false})
+        // console.log(req.session)
+    }
+})
+
+// router.get('/:id', async (req,res)=>{
+//     const id = req.params.users_id
+//     const response = await model.getList({where: {
+//         users_id: id,
+//     },
+//     })
+//     res.send(response)
+// })
 
 
 

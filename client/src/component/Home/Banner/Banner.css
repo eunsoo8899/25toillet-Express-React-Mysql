@@ -1,0 +1,12 @@
+.BannerContainer {
+  display: flex;
+  justify-content: center;
+  height: 55vh;
+  overflow: hidden;
+}
+
+.BannerContainer img {
+  display: flex;
+  justify-content: center;
+  width: 70vw;
+}

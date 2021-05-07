@@ -1,0 +1,138 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  /* position: sticky + top:0 를 넣어서 header를 항상 상단에 고정 */
+  position: sticky;
+  top: 0;
+  /* 백그라운드 컬러 안넣으면 투명상태 */
+  z-index: 99;
+  background: rgba(255, 255, 255, 0.904);
+  padding: 30px 60px;
+  margin: 0 20px;
+}
+.header_left {
+  flex: 0.1;
+}
+
+.header_logo {
+  height: 40px;
+  object-fit: contain;
+}
+
+.header_right {
+  flex: 0.1;
+  display: flex;
+  align-items: center;
+  justify-items: flex-end;
+  flex-direction: row;
+}
+
+.header_right > a {
+  text-decoration: none;
+  color: black;
+  justify-content: space-around;
+}
+
+.header_right .sign_btns {
+  display: flex;
+}
+.header_right .sign_btn {
+  width: 65px;
+  height: 25px;
+  border: none;
+  border: 1px solid gray;
+  border-radius: 6px;
+  background: white;
+}
+
+.header_right button:hover {
+  cursor: pointer;
+}
+
+.header_right .propfile_dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.header_right .propfile_dropdown .profile_dropdown_content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9e3;
+  min-width: 150px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  right: 0;
+  /* text-align: end; */
+}
+
+.header_right
+  .propfile_dropdown
+  .profile_dropdown_content
+  .profile_dropdown_content_id {
+  font-size: 17px;
+  font-weight: bold;
+  padding: 10px 0 0 10px;
+}
+
+.dropdown_contents button {
+  border: none;
+  background-color: white;
+  margin: 2px 3px;
+}
+
+.header_right .propfile_dropdown:hover .profile_dropdown_content {
+  display: block;
+}
+
+.header_right .profile_btn {
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: none;
+}
+
+.header_right .profile_btn > a > img {
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+}
+
+.header_right .sign_btn a:hover {
+  cursor: pointer;
+  font-weight: bold;
+  color: gray;
+}
+
+.header_right .sign_btn a {
+  text-decoration: none;
+  color: black;
+}
+.sign_btn {
+  margin: 0 5px;
+  font-size: 13px;
+}
+
+.header_icon {
+  margin-right: 8px;
+}
+
+.header_center {
+  flex: 0.8;
+  display: flex;
+}
+
+.header_center > a {
+  text-decoration: none;
+  color: black;
+}
+
+.contact {
+  margin: 0 30px 0 30px;
+  font-size: 11px;
+}
+
+.contact:hover {
+  color: gray;
+}

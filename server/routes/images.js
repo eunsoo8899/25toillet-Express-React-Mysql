@@ -7,60 +7,32 @@ const model = require('../models/images');
 const formidable = require('formidable')
 const path = require('path')
 const fs = require('fs')
-const util = require('../components/util')
-
-// router.post('/upload',async function (req, res, next) {
-//     try {
-//         const form = formidable({ multiples: true })
-//         form.parse(req, (err, fields, files) => {
-//             if (err) {
-//                 next(err);
-//                 return;
-//             }
-//             const file = files.image
-//             if(file){
-//                 const currentTime = util.getCurrentTime().replace(" ","")
-//                 const dir = `public/images/${currentTime}`
-//                 // const dir = path.join(__dirname,'..', `public/images/users/${currentTime}`)
-//                 !fs.existsSync(dir) && fs.mkdirSync(dir)
-//                 const newPath = `${dir}/${file.name}`
-//                 fs.renameSync(file.path, newPath)  //경로를 바꿔줍니다.
-//                 res.json({ result: `images/users/${currentTime}/${file.name}`});
-//             } else {
-//                 res.json({ result: `no image file`});
-//             }            
-//         })
-//     } catch(err){
-//         console.log('err : ',err)
-//         next(err)
-//     }
-// })
 
 router.post('/upload',async function (req, res, next) {
-    try {
-        const form = formidable({ multiples: true })
-        form.parse(req, (err, fields, files) => {
-            if (err) {
-                next(err);
-                return;
-            }
-            const file = files.image
-            if(file){
-                // const currentTime = util.getCurrentTime().replace(" ","")
-                // const dir = `public/images/users/${currentTime}`
-                const dir = path.join(__dirname,'..', `public/images/users`)
-                !fs.existsSync(dir) && fs.mkdirSync(dir)
-                const newPath = `${dir}/${file.name}`
-                fs.renameSync(file.path, newPath)  //경로를 바꿔줍니다.
-                res.json({ result: `images/users/${file.name}`});
-            } else {
-                res.json({ result: `no image file`});
-            }            
-        })
-    } catch(err){
-        console.log('err : ',err)
-        next(err)
-    }
+  try {
+    const form = formidable({ multiples: true })
+    form.parse(req, (err, fields, files) => {
+      if (err) {
+        next(err);
+        return;
+      }
+      const file = files.image
+      if(file){        
+        const users_id = req.query.users_id
+        const dir = path.join(__dirname,'..', `public/images/${users_id}`)
+
+        !fs.existsSync(dir) && fs.mkdirSync(dir)
+        const newPath = `${dir}/${file.name}`
+        fs.renameSync(file.path, newPath)  //경로를 바꿔줍니다.
+        res.json({ result: `images/${users_id}/${file.name}`});
+      } else {
+        res.json({ result: `no image file`});
+      }            
+    })
+  } catch(err){
+    console.log('err : ',err)
+    next(err)
+  }
 })
 
 
@@ -78,6 +50,20 @@ router.post('/',async function (req, res, next) {
     }
 })
 
+router.post('/profile',async function (req, res, next) {
+	const body = req.body; 
+	console.log('body : ', body)
+	try {
+			const connection = await db.beginTransaction()
+			const result = await model.profile(connection, body)
+			await db.commit(connection)
+			res.json({result})        
+	} catch(err){
+			console.log('err : ',err)
+			next(err)
+	}
+})
+
 router.put('/',async function (req, res, next) {
     try {
         const json = req.body; 
@@ -93,13 +79,34 @@ router.put('/',async function (req, res, next) {
 
 router.get('/',async function (req, res, next) {
     try {
-        const users_idx = req.query.users_idx
-        const result = await model.getList({users_idx:users_idx})
+        const users_id = req.query.users_id
+        const result = await model.getList({users_id:users_id})
         res.status(200).json({result})   
     } catch(err){
         console.log('err : ',err)
         next(err)
     }        
+})
+
+router.get('/users_page',async function (req, res, next) {
+  try {
+      const users_id = req.query.users_id
+      const result = await model.getList({users_id:users_id})
+      res.status(200).json({result})   
+  } catch(err){
+      console.log('err : ',err)
+      next(err)
+  }        
+})
+
+router.get('/recently',async function (req, res, next) {
+  try {      
+      const result = await model.getRecently()
+      res.status(200).json({result})   
+  } catch(err){
+      console.log('err : ',err)
+      next(err)
+  }        
 })
 
 

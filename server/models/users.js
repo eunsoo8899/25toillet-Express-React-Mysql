@@ -1,8 +1,6 @@
 
 const db = require('../components/db')
 
-
-
 module.exports.insert = async (connection, options) => {
     console.log('options : ',options)    
     let query = 'INSERT INTO users SET ?'
