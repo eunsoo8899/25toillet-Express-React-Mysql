@@ -59,12 +59,12 @@
 .header_right .propfile_dropdown .profile_dropdown_content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9e3;
+  background-color: white;
   min-width: 150px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   right: 0;
-  /* text-align: end; */
+  text-align: start;
 }
 
 .header_right
@@ -76,14 +76,24 @@
   padding: 10px 0 0 10px;
 }
 
+.dropdown_contents_title {
+  background-color: white;
+}
+
 .dropdown_contents button {
   border: none;
   background-color: white;
   margin: 2px 3px;
+  width: 95%;
+  text-align: start;
 }
 
 .header_right .propfile_dropdown:hover .profile_dropdown_content {
   display: block;
+}
+
+.dropdown_contents {
+  margin-bottom: 15px;
 }
 
 .header_right .profile_btn {

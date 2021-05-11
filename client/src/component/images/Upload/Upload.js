@@ -86,9 +86,17 @@ function Upload() {
 
         <div className="body" id="Selected" >
           <div className="imageSelect" >
-            <form>
+            <form className="img_select_form">
               {Preview ? (
-                  <img src={Preview} alt=""/>
+                  <img 
+                    className="img_select_pic"
+                    src={Preview} 
+                    alt=""
+                    onClick={(e) => {
+                      e.preventDefault()
+                      fileInputRef.current.click()
+                    }}
+                  />
               ) : (
               <button className="img_select_button"
                 onClick={(e) => {
@@ -114,6 +122,7 @@ function Upload() {
               <label htmlFor="">Title</label>
               <input 
                 type="text" 
+                maxLength="15"
                 placeholder='Title' 
                 onChange={(e) => {
                   setTitle(e.target.value)
@@ -130,9 +139,14 @@ function Upload() {
                 }}
               />
             </div>
+            <div className="upload_bttn">
+              <button 
+                className="image_upload_bttn"
+                onClick={onSubmit}
+              >Upload</button>
+            </div>
           </div>
 
-          <button onClick={onSubmit}>bttn</button>
         </div>
         
       </div>

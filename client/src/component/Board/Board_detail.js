@@ -1,9 +1,26 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
+import Axios from 'axios'
 
-function Board_detail() {
+function Board_detail(props) {
+  const {boardIdx} = props
+  const [BoardContent, setBoardContent] = useState('')
+
+  useEffect(() => {
+    Axios.get('http://localhost:3000/board/content',{
+          params: {
+            board_idx: boardIdx
+          }
+        }
+      )
+    .then((response) => { 
+      setBoardContent(response.data.result[0].board_content)
+      console.log(response)
+    })
+  }, [boardIdx])
+
   return (
     <div>
-      Board_detail
+      {BoardContent}
     </div>
   )
 }

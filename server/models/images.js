@@ -54,18 +54,11 @@ module.exports.delete = async (connection, options) => {
 module.exports.getList = async (options) => {
     console.log('options : ',options)
     try {
-        const {
-            users_idx,
-            users_id
-        } = options
+        const {users_id} = options
         let query = 'SELECT * FROM images'
-        let values;    
-        if(users_idx) {
-            query += ' WHERE users_idx = ?'
-            values = users_idx
-        }
+        let values;
         if(users_id) {
-            query += ' WHERE users_id = ?'
+            query += ' WHERE users_id = ? ORDER BY images_idx DESC'
             values = users_id
         }
         
@@ -103,7 +96,7 @@ module.exports.multipleInsert = async (options, connection) => {
 
 module.exports.getRecently = async () => {    
     try {        
-        let query = 'SELECT * FROM images order by images_idx DESC limit 0, 12'
+        let query = 'SELECT * FROM images order by images_idx DESC'
         let values;
 
         return await db.query({

@@ -13,12 +13,12 @@ module.exports.insert = async (connection, options) => {
 };
 
 module.exports.update = async (connection, options) => {
-    console.log('options : ',options) // {idx :2, name:'ssdf'}
-    let query = 'UPDATE users SET ? WHERE users_idx = ?'    
+    console.log('options : ',options)
+    let query = 'UPDATE users SET ? WHERE users_id = ?'    
     return await db.query({
         connection:connection,
         query:query,
-        values: [options, options.users_idx]
+        values: [options, options.users_id]
     })  
 };
 

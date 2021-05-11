@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './Signin.css'
 import Axios from 'axios'
 
 function Signin() {
   const [Id, setId] = useState()
   const [Password, setPassword] = useState()
-  const [Errors, setErrors] = useState([])
   // const [Error, setError] = useState('')
 
   Axios.defaults.withCredentials = true

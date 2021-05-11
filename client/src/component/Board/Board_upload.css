@@ -1,0 +1,48 @@
+.board_upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title_container {
+  display: flex;
+  width: 100%;
+}
+
+.board_upload_input_title {
+  display: flex;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.board_upload_input_title input {
+  display: flex;
+  border: 2px solid lightgray;
+  outline: none;
+  border-radius: 3px;
+  width: 98%;
+  height: 30px;
+}
+
+.board_upload_input {
+  padding: 10px 0;
+  width: 100%;
+}
+
+.board_upload_input textarea {
+  display: flex;
+  border: 2px solid lightgray;
+  outline: none;
+  border-radius: 3px;
+  width: 98%;
+  height: 300px;
+}
+
+.board_upload_btn {
+  width: 50%;
+  height: 30px;
+  background-color: gray;
+  margin-top: 20px;
+  border-radius: 4px;
+}

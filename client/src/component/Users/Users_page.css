@@ -28,7 +28,7 @@
   align-items: center;
 }
 
-.profile img {
+.profile .profile_mainImage {
   width: 90%;
   height: 90%;
   min-width: 300px;
@@ -53,6 +53,7 @@
   /* background-color: coral; */
   flex-direction: column;
   min-width: 350px;
+  margin-left: 40px;
 }
 
 .users_info {
@@ -142,22 +143,72 @@
   margin: 10px 10px 0 10px;
 }
 
-.users_info_board_container .board .board_list a {
+/* .users_info_board_container .board .board_list a {
+  flex: 0.5;
   text-decoration: none;
   color: black;
   display: flex;
   width: 100%;
-}
+} */
 
-.users_info_board_container .board .board_list div {
+.users_info_board_container .board .board_list .board_container {
   display: flex;
   width: 100%;
+  min-height: 200px;
+  flex-direction: column;
 }
 
 .users_info_board_container .board .board_list .date {
   display: flex;
   justify-content: flex-end;
+  flex: 0.5;
+  font-size: 11px;
 }
+
+.board_title_btn {
+  border: none;
+  background-color: white;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 1px 0px;
+}
+
+.board_title_btn:hover {
+  cursor: pointer;
+  color: gray;
+}
+
+.board_title_date {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main_image_btns {
+  display: flex;
+  width: 95%;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}
+
+.main_image_btns .update_main_image {
+  width: 65px;
+  height: 25px;
+  border: none;
+  border: 1px solid gray;
+  border-radius: 6px;
+  background: white;
+  text-align: center;
+}
+
+.main_image_btns .update_main_image:hover {
+  background-color: gray;
+  cursor: pointer;
+}
+
 .board_btns {
   display: flex;
   width: 95%;
@@ -175,6 +226,11 @@
   border-radius: 6px;
   background: white;
   text-align: center;
+}
+
+.board_btns button:hover {
+  cursor: pointer;
+  background-color: gray;
 }
 
 .pageNationBtns {
@@ -200,6 +256,28 @@
 .paginationActive a {
   color: black;
 }
+
+.boardPageNationBtns {
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  font-size: 12px;
+}
+
+.boardPageNationBtns a {
+  padding: 4px;
+  margin: 2px;
+  color: gray;
+  cursor: pointer;
+}
+
+.boardPageNationBtns a:hover {
+  color: black;
+}
+
 /* -------------------------------------------------------- */
 
 .users_image_container {
@@ -218,5 +296,31 @@
 
 .users_image_card img {
   max-width: 300px;
-  max-height: auto;
+}
+
+.users_image_card img:hover {
+  max-width: 320px;
+  cursor: pointer;
+}
+
+.users_image_card .images_info {
+  display: flex;
+  flex-direction: column;
+}
+
+.users_image_card .images_info .images_info_title {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.users_image_card .images_info .images_info_id {
+  font-size: 12px;
+  color: gray;
+  margin-top: 3px;
+}
+
+.users_image_card .images_info .images_info_id:hover {
+  cursor: pointer;
+  color: black;
+  font-size: 14px;
 }

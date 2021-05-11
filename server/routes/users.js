@@ -8,7 +8,7 @@ const users_img_model = require('../models/images')
 
 router.post('/signup',async function (req, res, next) {
     const body = req.body; 
-    console.log('body : ', body)    
+    console.log('body : ', body)
 
     try {      
         const connection = await db.beginTransaction()
@@ -19,7 +19,14 @@ router.post('/signup',async function (req, res, next) {
             res.status(404).json('중복되는 아이디가 있습니다.')            
         } else if (body.users_pwd !== body.users_pwd_confirm){
             res.status(404).json('비밀번호가 일치하지 않습니다.')
+        } else if (!body.users_name) {
+            res.status(404).json('모든 항목을 입력 해 주세요.')
+        } else if (!body.email) {
+            res.status(404).json('모든 항목을 입력 해 주세요.')
+        } else if (body.users_id.length < 7) {
+            res.status(404).json('ID는 7글자 이상 입력 해 주세요')
         }
+
         delete body.users_pwd_confirm
 
         const {salt, encodedPw} = crypto.createPasswordPbkdf2(body.users_pwd)
@@ -63,12 +70,10 @@ router.post('/signin',async function (req, res, next) {
         res.send(result)
     } else {
         // throw {status: 401, message: 'Login failed'}
-        res.status(401).json('비밀번호가 틀렸습니다.')      
-        
+        res.status(401).json('비밀번호가 틀렸습니다.')
     }    
     delete newResult.users_pwd
     delete newResult.salt
-    
     } catch(err){
         console.log('err : ',err)
         next(err)
@@ -108,15 +113,37 @@ router.get('/signin',(req, res) => {
     }
 })
 
-// router.get('/:id', async (req,res)=>{
-//     const id = req.params.users_id
-//     const response = await model.getList({where: {
-//         users_id: id,
-//     },
-//     })
-//     res.send(response)
-// })
+router.post('/duplicate',async function (req, res, next) {
+    const body = req.body; 
+    console.log('body : ', body)
 
+    try {      
+        const connection = await db.beginTransaction()
+        const usersResult = await model.getList({users_id:body.users_id})
+        if (body.users_id.length < 7) {
+            res.status(404).json('ID는 7글자 이상 입력 해 주세요')
+        } else if(usersResult.length > 0){
+            res.status(404).json('중복되는 아이디가 있습니다.')            
+        }
+        await db.commit(connection)
+        res.json('사용 가능한 ID입니다.')        
+    } catch(err){
+        console.log('err : ',err)
+        next(err)
+    }
+})
 
+router.put('/',async function (req, res, next) {
+    try {
+        const json = req.body; // {idx :2, name:'ssdf'}
+        const connection = await db.beginTransaction()
+        const result = await model.update(connection, json)
+        await db.commit(connection)
+        res.json({result})        
+    } catch (err){
+        console.log('err : ',err)
+        next(err)
+    }
+})
 
 module.exports = router;

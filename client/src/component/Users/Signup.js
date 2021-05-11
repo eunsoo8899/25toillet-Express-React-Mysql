@@ -29,17 +29,34 @@ function Signup() {
     })
   }
 
+  const duplicate = () => {
+    Axios.post('http://localhost:3000/users/duplicate',{
+      users_id: id  
+    }).then((response) => {
+      console.log(response)
+      alert(response.data) 
+    }).catch(err => {
+      alert(err.response.data) 
+    })
+  }
+
   return (
     <div className='signup'>
-    
-      <div className='signup_input'>        
-        <input 
-          type="id"
-          placeholder='ID'
-          onChange={(e)=>{
-            setid(e.target.value)
-          }}
-        />
+      <div className="IDinput_container">
+        <div className='signup_input_id'>        
+          <input 
+            type="text"
+            placeholder='ID'
+            onChange={(e)=>{
+              setid(e.target.value)
+            }}
+          />
+        </div>
+        <div className="Duplication_btn_container">
+          <button
+            onClick={duplicate}
+          >중복체크</button>
+        </div>
       </div>
     
       <div className='signup_input'>      
@@ -82,7 +99,7 @@ function Signup() {
         />
       </div>
       
-      <button onClick={signup} className='signup_btn'>submit</button>
+      <button onClick={signup} className='signup_btn'>회원 가입</button>
       
     </div>
   )
