@@ -34,13 +34,13 @@ module.exports.delete = async (connection, options) => {
 module.exports.getList = async (options) => {
     console.log('options : ',options)
     const {
-      profile_idx
+        users_id
     } = options
     let query = 'SELECT * FROM profile'
     let values;    
-    if(profile_idx) {
-        query += ' WHERE profile_idx = ?'
-        values = profile_idx
+    if(users_id) {
+        query += ' WHERE users_id = ? ORDER BY profile_idx DESC'
+        values = users_id
     }
     return await db.query({
         // connection:connection,

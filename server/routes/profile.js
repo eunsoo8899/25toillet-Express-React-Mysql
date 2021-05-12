@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router();
 
 const db = require('../components/db')
-const model = require('../models/about');
+const model = require('../models/profile');
 
 router.post('/',async function (req, res, next) {
-    const body = req.body; // {name:asdf,price:200}
+    const body = req.body; 
     console.log('body : ', body)
     try {
         const connection = await db.beginTransaction()
@@ -50,8 +50,8 @@ router.delete('/', async function (req, res, next) {
 
 router.get('/',async function (req, res, next) {
     try {
-        const about_idx = req.query.about_idx
-        const result = await model.getList({about_idx:about_idx})
+        const users_id = req.query.users_id
+        const result = await model.getList({users_id:users_id})
         res.status(200).json({result})   
     } catch(err){
         console.log('err : ',err)

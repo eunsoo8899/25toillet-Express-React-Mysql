@@ -1,10 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react'
-import './Upload.css'
+import './UploadProfile.css'
 import Axios from 'axios'
 
-function Upload() {
-  const [Title, setTitle] = useState()
-  const [Description, setDescription] = useState('')
+function UploadProfile() {
   
   const id= sessionStorage.getItem('id')
   
@@ -44,7 +42,7 @@ function Upload() {
     const formData = new FormData()
     formData.append('image', File)
       
-    Axios.post('http://localhost:3000/images/upload',formData, {  
+    Axios.post('http://localhost:3000/images/profileUpload',formData, {  
       params: {
         users_id: id
       }       
@@ -55,20 +53,17 @@ function Upload() {
       }
     }
     ).then((response) => {
-      console.log(response.data.result)
-      
-        Axios.post('http://localhost:3000/images',
+      console.log(response.data.result)      
+        Axios.post('http://localhost:3000/profile',
           {
-            images_title: Title,
-            images_description: Description,
-            images_path: response.data.result,
+            profile_path: response.data.result,
             users_id: id
           }
         )
         alert("Upload Success")
         window.location.pathname = '/'      
     }).catch((err) => {
-      alert(err.response.data)
+      alert(err.response.data) 
     })
   }
 
@@ -113,28 +108,7 @@ function Upload() {
             </form>
           </div>
           
-          <div className="uploadForm">
-            <div className="titleContainer">
-              <label htmlFor="">Title</label>
-              <input 
-                type="text" 
-                maxLength="15"
-                placeholder='Title' 
-                onChange={(e) => {
-                  setTitle(e.target.value)
-                }}
-              />
-            </div>
-
-            <div className="descriptionContainer">
-              <label htmlFor="">Description</label>
-              <textarea 
-                placeholder='Description'
-                onChange={(e) => {
-                  setDescription(e.target.value)
-                }}
-              />
-            </div>
+          <div className="uploadForm"> 
             <div className="upload_bttn">
               <button 
                 className="image_upload_bttn"
@@ -150,4 +124,4 @@ function Upload() {
   )
 }
 
-export default Upload
+export default UploadProfile

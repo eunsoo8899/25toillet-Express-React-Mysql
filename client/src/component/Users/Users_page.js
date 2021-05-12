@@ -140,9 +140,9 @@ function Users_page() {
         <div className="images_info_title">
           {value.images_title}
         </div>
-        <div className="images_info_id">
+        {/* <div className="images_info_id">
           {value.users_id}
-        </div>
+        </div> */}
       </div>
     </div>
     })
@@ -261,16 +261,16 @@ function Users_page() {
               <ModalUpdate open={ modalOpen } close={ closeModal } header="게시판 업로드">
                 <BoardUpload/>
               </ModalUpdate>
-              <input type="text" className="serchbar"placeholder="검색"/>
+              {/* <input type="text" className="serchbar"placeholder="검색"/>
 
               <button>
                 검색
-              </button>
+              </button> */}
             </div>
           ) : (
-            <div className="board_btns">
-              <input type="text" className="serchbar"placeholder="검색"/>
-              <button>검색</button>
+            <div>
+              {/* <input type="text" className="searchInput"placeholder="검색"/>
+              <button>검색</button> */}
             </div>
           )}
             

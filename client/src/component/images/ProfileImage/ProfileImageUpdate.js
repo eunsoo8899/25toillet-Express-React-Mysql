@@ -7,7 +7,7 @@ import './ProfileImageUpdate.css'
 function ProfileImageUpdate() {
   const [ProfileImage, setProfileImage] = useState('')
   const id = sessionStorage.getItem('id')
-  const [UserImages, setUserImages] = useState([].slice(0,25))
+  const [ProfileImages, setProfileImages] = useState([].slice(0,25))
   const [pageNumber2, setpageNumber2] = useState(0)
 
   const [newProfileImage, setnewProfileImage] = useState('')
@@ -29,7 +29,7 @@ function ProfileImageUpdate() {
   }, [id])
 
   useEffect(() => {
-    Axios.get('http://localhost:3000/images/users_page',{
+    Axios.get('http://localhost:3000/profile',{
       params: {
         users_id: id
       }
@@ -37,37 +37,37 @@ function ProfileImageUpdate() {
   )
 .then((response) => {
   console.log(response)      
-  setUserImages(response.data.result)
+  setProfileImages(response.data.result)
 })
 }, [id])
 
-const ChangeMainImage = () => {
+const ChangeProfileImage = () => {
   Axios.put('http://localhost:3000/users', {
     users_id: id,
     profile: newProfileImage
   }).then(
-    window.location.pathname = `/users_page/${id}`,
+    window.location.pathname = '/',
   )
 }
 
   const imagePerPage = 5
   const pagesVisited2 = pageNumber2 * imagePerPage
-  const pageCount2 = Math.ceil(UserImages.length / imagePerPage)
-  const displayImage = UserImages
+  const pageCount2 = Math.ceil(ProfileImages.length / imagePerPage)
+  const displayImage = ProfileImages
                         .slice(pagesVisited2, pagesVisited2 + imagePerPage)
                         .map((value) => {
                           return <div 
                           className='MainImageUpdate_imageCard' 
-                          key={value.images_idx} 
+                          key={value.profile_idx} 
                           id={value.users_id}
-                          onClick={ChangeMainImage}
+                          onClick={ChangeProfileImage}
                           >
                           <div>
                             <img 
                               alt='' 
-                              src={`http://localhost:3000/${value.images_path}`} 
+                              src={`http://localhost:3000/${value.profile_path}`} 
                               onMouseUp={()=>{
-                                setnewProfileImage(value.images_path)
+                                setnewProfileImage(value.profile_path)
                               }
                               }
                             />

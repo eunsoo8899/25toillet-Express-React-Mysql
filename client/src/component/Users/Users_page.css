@@ -20,9 +20,9 @@
   flex: 0.35;
   /* background-color: chartreuse; */
   overflow: hidden;
-  max-width: 40vw;
+  max-width: 30vw;
   min-width: 300px;
-  max-height: 70vh;
+  max-height: 50vh;
   /* margin: 0 20px; */
   justify-content: center;
   align-items: center;
@@ -31,8 +31,6 @@
 .profile .profile_mainImage {
   width: 90%;
   height: 90%;
-  min-width: 300px;
-  min-height: 400px;
 }
 
 .profile .btns {
@@ -86,8 +84,9 @@
 }
 
 .user .user_profile_pic img {
-  width: 85%;
-  height: 85%;
+  width: 85px;
+  height: 85px;
+  border-radius: 3px;
 }
 
 .user_proflie .users_info {
@@ -110,11 +109,18 @@
   padding: 3px 5px;
 }
 
+.user_proflie .users_info .users_info_top .top_bottom {
+  padding: 0px 5px;
+}
+
 .users_info_bottom {
   display: flex;
   overflow: scroll;
-  max-height: 100px;
+  max-height: 65px;
   min-height: 40px;
+  border: 0.5px solid lightgray;
+  margin-bottom: 3px;
+  font-size: 12px;
 }
 
 .users_info_bottom::-webkit-scrollbar {
@@ -135,7 +141,7 @@
 
 .users_info_board_container .board .board_list {
   width: 95%;
-  border-bottom: 1px solid rgb(182, 182, 182);
+  /* border-bottom: 1px solid rgb(182, 182, 182); */
   max-width: 40vw;
   min-width: 200px;
   max-height: 60vh;
@@ -213,7 +219,7 @@
   display: flex;
   width: 95%;
   height: 30px;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin: 5px;
 }
@@ -289,17 +295,17 @@
 
 .users_image_card {
   display: table;
-  width: 350px;
+  width: 250px;
 
-  margin: 10px 20px 20px 10px;
+  margin: 10px 20px;
 }
 
 .users_image_card img {
-  max-width: 300px;
+  max-width: 250px;
 }
 
 .users_image_card img:hover {
-  max-width: 320px;
+  max-width: 260px;
   cursor: pointer;
 }
 
@@ -313,7 +319,7 @@
   font-weight: bold;
 }
 
-.users_image_card .images_info .images_info_id {
+/* .users_image_card .images_info .images_info_id {
   font-size: 12px;
   color: gray;
   margin-top: 3px;
@@ -323,4 +329,4 @@
   cursor: pointer;
   color: black;
   font-size: 14px;
-}
+} */

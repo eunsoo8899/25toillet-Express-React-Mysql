@@ -1,12 +1,15 @@
-import React, { useEffect, useState} from 'react'
+import React, { useEffect, useState, useRef} from 'react'
 import './Header.css'
 import { Link } from 'react-router-dom'
 import Axios from 'axios'
+import {useDetect} from './useDetect'
 
 import Modal from '../Modal/Modal'
 import ModalUpdate from '../Modal/ModalUpdate'
 import Signin from '../Users/Signin'
 import Signup from '../Users/Signup'
+import ImageUpload from '../images/Upload/Upload'
+import ProfileImageUpload from '../images/Upload/UploadProfile'
 import ProfileImage from '../images/ProfileImage/ProfileImageUpdate'
 
 function Header() {
@@ -15,6 +18,10 @@ function Header() {
   const [profilePicture, setprofilePicture] = useState('')
 
   const id = sessionStorage.getItem('id')
+
+  const dropdownRef = useRef(null)
+  const [isActive, setisActive] = useDetect(dropdownRef, false)
+  const onClick = () => setisActive(!isActive)
 
   useEffect(() => {
     Axios.get('http://localhost:3000/users',{
@@ -64,6 +71,22 @@ function Header() {
     setModalOpen3(false);
   }
 
+  const [ modalOpen4, setModalOpen4 ] = useState(false);
+  const openModal4 = () => {
+    setModalOpen4(true);
+  }
+  const closeModal4 = () => {
+    setModalOpen4(false);
+  }
+
+  const [ modalOpen5, setModalOpen5 ] = useState(false);
+  const openModal5 = () => {
+    setModalOpen5(true);
+  }
+  const closeModal5 = () => {
+    setModalOpen5(false);
+  }
+
   return (
     <div className="header">
 
@@ -95,36 +118,60 @@ function Header() {
       <div className="header_right">
         {loggedIn ? (
           <div className='propfile_dropdown'>
-            <img alt='' src={`http://localhost:3000/${profilePicture}`} className='profile_btn'/>
-            <div className="profile_dropdown_content">
+            <button className='profile_btn'onClick={onClick}>
+              <img 
+                src={`http://localhost:3000/${profilePicture}`}  
+                alt="" 
+                className="profile_btn"
+              />
+            </button>
+            <div ref={dropdownRef}
+              className={`menu ${isActive ? "active" : "inactive"}`}
+            >
               <div className="profile_dropdown_content_id">{id}</div>
               <br/>
               <div className="dropdown_contents">
                 <button onClick={() => {
                   window.location.pathname = `/users_page/${id}`
-                }}>
+                }}
+                className="dropdown_contents_btn"
+                >
                   <div className="dropdown_contents_title"> - 개인페이지</div>
                 </button>
-                <button onClick={() => {
-                  window.location.pathname = `/upload/${id}`
-                }}>
+                
+                <button onClick={ openModal3 } className="dropdown_contents_btn">
                   <div className="dropdown_contents_title"> - 작품 등록</div>
                 </button>
-                <button onClick={ openModal3 }>
+                
+                <button onClick={ openModal4 } className="dropdown_contents_btn">
+                  <div className="dropdown_contents_title"> - 프로필 사진 등록</div>
+                </button>
+                
+                <button onClick={ openModal5 } className="dropdown_contents_btn">
                   <div className="dropdown_contents_title"> - 프로필 사진 변경</div>
                 </button>
-                <ModalUpdate open={ modalOpen3 } close={ closeModal3 } header="Sign in">
-                  <ProfileImage/>
-                </ModalUpdate>           
+
+                    
                 <button
                   onClick={()=> {
                     sessionStorage.clear()
                     window.location.pathname = '/'
-                  }}> - 로그 아웃
+                  }}
+                  className="dropdown_contents_btn"
+                  > - 로그 아웃
                 </button>
               </div>
               
-            </div>   
+            </div>
+            <ModalUpdate open={ modalOpen3 } close={ closeModal3 } header="작품 등록">
+              <ImageUpload/>
+            </ModalUpdate>
+            <ModalUpdate open={ modalOpen4 } close={ closeModal4 } header="프로필 사진 등록">
+              <ProfileImageUpload/>
+            </ModalUpdate> 
+            <ModalUpdate open={ modalOpen5 } close={ closeModal5 } header="프로필 사진 변경">
+              <ProfileImage/>
+            </ModalUpdate>
           </div>
         ): (        
           <div className='sign_btns'>

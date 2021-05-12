@@ -18,7 +18,7 @@ var reviewRouther = require('./routes/review')
 var subscribeRouther = require('./routes/subscribe')
 var usersRouter = require('./routes/users');
 var workRouter = require('./routes/work');
-// var auth = require('./routes/auth');
+var profileRouter = require('./routes/profile');
 
 
 
@@ -115,6 +115,7 @@ app.use('/review', reviewRouther)
 app.use('/subscribe', subscribeRouther)
 app.use('/users', usersRouter);
 app.use('/work', workRouter); 
+app.use('/profile', profileRouter); 
 
 
 // catch 404 and forward to error handler
