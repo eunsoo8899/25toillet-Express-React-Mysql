@@ -23,6 +23,7 @@
   border-radius: 3px;
   width: 98%;
   height: 30px;
+  padding: 1px 5px;
 }
 
 .board_upload_input {
@@ -37,12 +38,12 @@
   border-radius: 3px;
   width: 98%;
   height: 300px;
+  padding: 1px 5px;
 }
-
 .board_upload_btn {
   width: 50%;
   height: 30px;
-  background-color: gray;
   margin-top: 20px;
   border-radius: 4px;
+  border: 1px solid gray;
 }

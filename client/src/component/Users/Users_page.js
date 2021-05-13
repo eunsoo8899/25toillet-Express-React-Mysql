@@ -5,17 +5,18 @@ import { useParams } from 'react-router-dom'
 import ReactPaginate from 'react-paginate'
 import ModalUpdate from '../Modal/ModalUpdate'
 import Modal from '../Modal/Modal'
+import ModalImage from '../Modal/ModalImage'
 
 import BoardUpload from '../Board/Board_upload'
 import BoardDetail from '../Board/Board_detail'
 import MainImageUpdate from '../images/MainImage/MainImageUpdate'
+import BoardUserInfo from '../Board/Board_users_info'
+import DetailImage from '../images/DetailImage'
 
 function Users_page() {
 
   const [UserProfile, setUserProfile] = useState('')
   const [UserID, setUserID] = useState('')
-  const [UserName, setUserName] = useState('')
-  const [UserEmail, setUserEmail] = useState('')
   const [UserMainImage, setUserMainImage] = useState('')
   const [UserInfo, setUserInfo] = useState('')
   
@@ -30,7 +31,8 @@ function Users_page() {
 
   const [UserImages, setUserImages] = useState([].slice(0,25))
   const [pageNumber2, setpageNumber2] = useState(0)
-  
+  const [ImagesIdx, setImagesIdx] = useState('')
+
   const { id } = useParams()    
 
   useEffect(() => {
@@ -41,7 +43,8 @@ function Users_page() {
         }
       )
     .then((response) => {    
-      setUserImages(response.data.result)      
+      setUserImages(response.data.result)
+      console.log(response)    
     })
   }, [id])
 
@@ -55,8 +58,6 @@ function Users_page() {
     .then((response) => {       
       setUserProfile(response.data.result.profile)
       setUserID(response.data.result.users_id)
-      setUserName(response.data.result.users_name)
-      setUserEmail(response.data.result.email)
       setUserMainImage(response.data.result.main_image)
       setUserInfo(response.data.result.users_info)
     })
@@ -92,6 +93,22 @@ function Users_page() {
     })
   }, [id])
 
+    // Board upload modal
+    const [ modalOpen, setModalOpen ] = useState(false);
+    const openModal = () => {
+      setModalOpen(true);
+    }
+    const closeModal = () => {
+      setModalOpen(false);
+    }
+    // MainImage Update modal
+    const [ modalOpen2, setModalOpen2 ] = useState(false);
+    const openModal2 = () => {
+      setModalOpen2(true);
+    }
+    const closeModal2 = () => {
+      setModalOpen2(false);
+    }
     // board Modal
     const [ modalOpen3, setModalOpen3 ] = useState(false);
     const openModal3 = () => {
@@ -100,9 +117,22 @@ function Users_page() {
     const closeModal3 = () => {
       setModalOpen3(false);
     }
-
+    // Users_info Update modal
+    const [ modalOpen4, setModalOpen4 ] = useState(false);
+    const openModal4 = () => {
+      setModalOpen4(true);
+    }
+    const closeModal4 = () => {
+      setModalOpen4(false);
+    }
     // image detail Modal
-
+    const [ modalOpen5, setModalOpen5 ] = useState(false);
+    const openModal5 = () => {
+      setModalOpen5(true);
+    }
+    const closeModal5 = () => {
+      setModalOpen5(false);
+    }
   
 
   const boardPerPage = 10
@@ -126,23 +156,23 @@ function Users_page() {
   const imagePerPage = 10
   const pagesVisited2 = pageNumber2 * imagePerPage
   const pageCount2 = Math.ceil(UserImages.length / imagePerPage)
+
   const displayImage = UserImages
     .slice(pagesVisited2, pagesVisited2 + imagePerPage)
     .map((value) => {
       return <div className='users_image_card' key={value.images_idx} id={value.users_id}> 
       <img 
         alt='' 
-        src={`http://localhost:3000/${value.images_path}`} 
-        // onMouseUp={}
-        // onClick={}
+        src={`http://localhost:3000/${value.images_path}`}
+        onClick={ openModal5 }
+        onMouseUp={()=>{
+          setImagesIdx(value.images_idx)
+        }}
       />
       <div className="images_info">
         <div className="images_info_title">
           {value.images_title}
         </div>
-        {/* <div className="images_info_id">
-          {value.users_id}
-        </div> */}
       </div>
     </div>
     })
@@ -155,22 +185,6 @@ function Users_page() {
     setpageNumber2(selected)
   }
   
-  // Board upload modal
-  const [ modalOpen, setModalOpen ] = useState(false);
-  const openModal = () => {
-    setModalOpen(true);
-  }
-  const closeModal = () => {
-    setModalOpen(false);
-  }
-  // MainImage Update modal
-  const [ modalOpen2, setModalOpen2 ] = useState(false);
-  const openModal2 = () => {
-    setModalOpen2(true);
-  }
-  const closeModal2 = () => {
-    setModalOpen2(false);
-  }
 
 
 
@@ -207,25 +221,29 @@ function Users_page() {
 
               <div className="users_info">
 
-                <div className="users_info_top">
-                  <div className="top_top">
-                    <div className="users_id">
-                      ID : {UserID}
-                    </div>
-                    <div className="users_name">
-                      NAME: {UserName}
-                    </div>
-                  </div>
-                  <div className="top_bottom">
-                    <div className="email">
-                      {UserEmail}
-                    </div>                    
+                <div className="users_info_top">                  
+                  <div className="users_id">
+                    {UserID}
                   </div>
                 </div>
-
-                <div className="users_info_bottom">
+                {Owner ? (
+                  <div className="users_info_bottom_container">
+                    <div className="users_info_bottom">
+                      {UserInfo}                  
+                    </div>
+                    <button className="users_info_update_btn" onClick={ openModal4 }>
+                      등록
+                    </button>
+                    <ModalUpdate open={ modalOpen4 } close={ closeModal4 } header="대표글 등록 및 수정">
+                      <BoardUserInfo/>
+                    </ModalUpdate> 
+                  </div>
+                
+                ) : (
+                  <div className="users_info_bottom">
                   {UserInfo}
                 </div>
+                )}
               </div>
             </div>
           </div>
@@ -255,22 +273,15 @@ function Users_page() {
 
             {Owner ? (
             <div className="board_btns">              
-              <button onClick={ openModal }>
+              <button onClick={ openModal } className="small_btns">
                 등록
               </button>
               <ModalUpdate open={ modalOpen } close={ closeModal } header="게시판 업로드">
                 <BoardUpload/>
               </ModalUpdate>
-              {/* <input type="text" className="serchbar"placeholder="검색"/>
-
-              <button>
-                검색
-              </button> */}
             </div>
           ) : (
-            <div>
-              {/* <input type="text" className="searchInput"placeholder="검색"/>
-              <button>검색</button> */}
+            <div>    
             </div>
           )}
             
@@ -282,6 +293,11 @@ function Users_page() {
 
       <div className='users_image_container'>        
         {displayImage}
+        <ModalImage open={ modalOpen5 } close={ closeModal5 } header="test" >
+          <DetailImage 
+            images_idx={ImagesIdx}
+          />
+        </ModalImage>
       </div>
       <ReactPaginate
                   previousLabel={"<"}

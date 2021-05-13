@@ -1,0 +1,43 @@
+.Detail_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.Detail_container .image_container {
+  display: flex;
+  justify-content: center;
+}
+
+.Detail_container .image_container .detail_image {
+  width: 60%;
+}
+
+.text_container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.text_container .des {
+  width: 60%;
+  height: 5vh;
+  padding: 10px;
+  word-break: break-all;
+  overflow: scroll;
+}
+
+.text_container .des::-webkit-scrollbar {
+  display: none;
+}
+
+.text_container .user_id {
+  width: 60%;
+  padding: 10px;
+}
+
+.text_container .title {
+  width: 60%;
+  padding: 10px;
+}

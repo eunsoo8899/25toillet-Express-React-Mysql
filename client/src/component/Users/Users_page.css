@@ -100,31 +100,49 @@
 .user_proflie .users_info .users_info_top {
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  margin: 10px 5px;
   font-size: 12px;
   font-weight: bold;
 }
 
-.user_proflie .users_info .users_info_top .top_top {
+.user_proflie .users_info .users_info_top .users_id {
   padding: 3px 5px;
-}
-
-.user_proflie .users_info .users_info_top .top_bottom {
-  padding: 0px 5px;
 }
 
 .users_info_bottom {
   display: flex;
+  flex-direction: column;
   overflow: scroll;
-  max-height: 65px;
-  min-height: 40px;
-  border: 0.5px solid lightgray;
-  margin-bottom: 3px;
+  max-height: 50px;
+  height: 40px;
+  min-width: 185px;
+  margin-bottom: 15px;
   font-size: 12px;
+  padding: 5px 8px;
+  box-shadow: 0 0px 5px rgb(0 0 0 / 70%);
 }
 
 .users_info_bottom::-webkit-scrollbar {
   display: none;
+}
+.users_info_bottom_container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-bottom: 7px;
+}
+.users_info_bottom_container .users_info_update_btn {
+  width: 65px;
+  height: 25px;
+  border: 1px solid gray;
+  border-radius: 6px;
+  background: white;
+  text-align: center;
+}
+
+.users_info_bottom_container .users_info_update_btn:hover {
+  background: gray;
+  cursor: pointer;
 }
 
 /* -------------------------------------------------------- */
@@ -224,7 +242,7 @@
   margin: 5px;
 }
 
-.board_btns button {
+.board_btns .small_btns {
   width: 65px;
   height: 25px;
   border: none;
@@ -234,7 +252,7 @@
   text-align: center;
 }
 
-.board_btns button:hover {
+.board_btns .small_btns:hover {
   cursor: pointer;
   background-color: gray;
 }

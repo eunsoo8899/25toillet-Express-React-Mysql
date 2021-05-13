@@ -137,6 +137,18 @@ router.get('/recently',async function (req, res, next) {
   }        
 })
 
+router.get('/detail',async function (req, res, next) {
+  try {
+      const images_idx = req.query.images_idx
+      const result = await model.getListByIdx({images_idx:images_idx})
+      res.status(200).json({result})   
+  } catch(err){
+      console.log('err : ',err)
+      next(err)
+  }        
+})
+
+
 
 
 module.exports = router;

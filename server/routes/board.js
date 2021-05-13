@@ -9,10 +9,14 @@ router.post('/',async function (req, res, next) {
     const body = req.body; // {name:asdf,price:200}
     console.log('body : ', body)
     try {
-        const connection = await db.beginTransaction()
-        const result = await model.insert(connection, body)
-        await db.commit(connection)
-        res.json({result})        
+        if(body.board_title && body.board_content) {
+            const connection = await db.beginTransaction()
+            const result = await model.insert(connection, body)
+            await db.commit(connection)
+            res.json('게시물을 등록했습니다.')        
+        } else {
+            res.status(404).json('제목과 내용을 입력해주세요.')
+        }
     } catch(err){
         console.log('err : ',err)
         next(err)

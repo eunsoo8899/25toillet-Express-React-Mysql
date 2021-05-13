@@ -14,6 +14,7 @@ function Board_upload() {
       board_content: Constents,
       users_id: id
     }).then((response) => {
+      alert(response.data) 
       window.location.pathname = `/users_page/${id}`
     }).catch(err => {
       alert(err.response.data) 

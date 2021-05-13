@@ -51,26 +51,6 @@ module.exports.delete = async (connection, options) => {
 };
 
 
-module.exports.getList = async (options) => {
-    console.log('options : ',options)
-    try {
-        const {users_id} = options
-        let query = 'SELECT * FROM images'
-        let values;
-        if(users_id) {
-            query += ' WHERE users_id = ? ORDER BY images_idx DESC'
-            values = users_id
-        }
-        
-        return await db.query({
-            // connection:connection,
-            query:query,
-            values:values
-        })    
-    } catch (err) {
-        throw new Error(err)
-    }
-};
 
 
 module.exports.multipleInsert = async (options, connection) => {
@@ -94,11 +74,54 @@ module.exports.multipleInsert = async (options, connection) => {
     }
 }
 
+
+module.exports.getList = async (options) => {
+    console.log('options : ',options)
+    try {
+        const {users_id} = options
+        let query = 'SELECT * FROM images'
+        let values;
+        if(users_id) {
+            query += ' WHERE users_id = ? ORDER BY images_idx DESC'
+            values = users_id
+        }
+        
+        return await db.query({
+            // connection:connection,
+            query:query,
+            values:values
+        })    
+    } catch (err) {
+        throw new Error(err)
+    }
+};
+
 module.exports.getRecently = async () => {    
     try {        
         let query = 'SELECT * FROM images order by images_idx DESC'
         let values;
 
+        return await db.query({
+            // connection:connection,
+            query:query,
+            values:values
+        })    
+    } catch (err) {
+        throw new Error(err)
+    }
+};
+
+module.exports.getListByIdx = async (options) => {
+    console.log('options : ',options)
+    try {
+        const {images_idx} = options
+        let query = 'SELECT * FROM images'
+        let values;
+        if(images_idx) {
+            query += ' WHERE images_idx = ?'
+            values = images_idx
+        }
+        
         return await db.query({
             // connection:connection,
             query:query,

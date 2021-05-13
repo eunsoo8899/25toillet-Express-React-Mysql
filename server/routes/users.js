@@ -19,12 +19,12 @@ router.post('/signup',async function (req, res, next) {
             res.status(404).json('중복되는 아이디가 있습니다.')            
         } else if (body.users_pwd !== body.users_pwd_confirm){
             res.status(404).json('비밀번호가 일치하지 않습니다.')
-        } else if (!body.users_name) {
-            res.status(404).json('모든 항목을 입력 해 주세요.')
-        } else if (!body.email) {
+        } else if (!body.users_name || !body.email) {
             res.status(404).json('모든 항목을 입력 해 주세요.')
         } else if (body.users_id.length < 7) {
             res.status(404).json('ID는 7글자 이상 입력 해 주세요')
+        } else if (body.users_pwd.length < 8) {
+            res.status(404).json('password는 8글자 이상 입력 해 주세요')
         }
 
         delete body.users_pwd_confirm
@@ -135,11 +135,11 @@ router.post('/duplicate',async function (req, res, next) {
 
 router.put('/',async function (req, res, next) {
     try {
-        const json = req.body; // {idx :2, name:'ssdf'}
+        const json = req.body;
         const connection = await db.beginTransaction()
-        const result = await model.update(connection, json)
+        await model.update(connection, json)
         await db.commit(connection)
-        res.json({result})        
+        res.json('Success')        
     } catch (err){
         console.log('err : ',err)
         next(err)

@@ -45,9 +45,10 @@ const ChangeProfileImage = () => {
   Axios.put('http://localhost:3000/users', {
     users_id: id,
     profile: newProfileImage
-  }).then(
-    window.location.pathname = '/',
-  )
+  }).then((response) => {
+    alert(response.data)
+    window.location.pathname = '/'
+  })
 }
 
   const imagePerPage = 5
