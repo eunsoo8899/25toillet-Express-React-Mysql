@@ -61,3 +61,42 @@ module.exports.getList = async (options) => {
         values:values
     })    
 };
+
+module.exports.sendEmail = async (connection, options) => {
+    console.log('options : ',options)    
+    let query = 'INSERT INTO verify SET ?'
+    let values = options;        
+    return await db.query({
+        connection:connection,
+        query:query,
+        values:values
+    })  
+};
+
+module.exports.getVerify = async (options) => {
+    console.log('options : ',options)
+    const {
+        email
+    } = options
+    let query = 'SELECT * FROM verify'
+    let values;    
+    if(email) {
+        query += ' WHERE email = ? ORDER BY verify_idx DESC'
+        values = email
+    }
+    return await db.query({
+        query:query,
+        values:values
+    })    
+};
+
+module.exports.findAccount = async (connection, options) => {
+    console.log('options : ',options)    
+    let query = 'UPDATE verify SET `key_for_verify` = ? WHERE email = ?'
+
+    return await db.query({
+        connection:connection,
+        query:query,
+        values: [options.key_for_verify, options.email]
+    })  
+};

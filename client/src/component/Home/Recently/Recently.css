@@ -22,6 +22,7 @@
 
 .image_card .image_card_img:hover {
   width: 365px;
+  cursor: pointer;
 }
 
 .image_card_title {

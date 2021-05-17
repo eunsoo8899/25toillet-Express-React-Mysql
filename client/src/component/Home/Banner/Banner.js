@@ -14,7 +14,7 @@ function Banner() {
     }).then((response) => {
       console.log(response)
       setBanner({
-        banner: response.data.result[8].images_path
+        banner: response.data.result[1].images_path
       })
     })
   }, [])

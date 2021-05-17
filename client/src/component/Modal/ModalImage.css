@@ -14,7 +14,8 @@
 }
 .ModalImage > section {
   width: 100%;
-  max-width: 70vw;
+  max-width: 50vw;
+  max-height: 80vh;
   height: auto;
   margin: 0 auto;
   border-radius: 0.3rem;
@@ -51,6 +52,8 @@
   padding: 15px;
   border-bottom: 1px solid #dee2e6;
   border-top: 1px solid #dee2e6;
+  display: flex;
+  justify-content: center;
 }
 
 .ModalImage.openModalImage {

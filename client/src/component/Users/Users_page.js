@@ -32,6 +32,7 @@ function Users_page() {
   const [UserImages, setUserImages] = useState([].slice(0,25))
   const [pageNumber2, setpageNumber2] = useState(0)
   const [ImagesIdx, setImagesIdx] = useState('')
+  const [ImagesTitle, setImagesTitle] = useState('')
 
   const { id } = useParams()    
 
@@ -167,6 +168,7 @@ function Users_page() {
         onClick={ openModal5 }
         onMouseUp={()=>{
           setImagesIdx(value.images_idx)
+          setImagesTitle(value.images_title)
         }}
       />
       <div className="images_info">
@@ -293,7 +295,7 @@ function Users_page() {
 
       <div className='users_image_container'>        
         {displayImage}
-        <ModalImage open={ modalOpen5 } close={ closeModal5 } header="test" >
+        <ModalImage open={ modalOpen5 } close={ closeModal5 } header={ImagesTitle} >
           <DetailImage 
             images_idx={ImagesIdx}
           />

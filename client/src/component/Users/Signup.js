@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Axios from 'axios'
 import './Signup.css'
 
@@ -11,8 +11,9 @@ function Signup() {
   const [password_confirm, setpassword_confirm] = useState()
   const [name, setname] = useState()  
   const [email, setemail] = useState()
-
-
+  const [InputVerifyKey, setInputVerifyKey] = useState('2')
+  const [DbVerifyKey, setDbVerifyKey] = useState('1')
+  const [btn, setbtn] = useState(false)
 
   const signup = () => {    
     Axios.post('http://localhost:3000/users/signup',{
@@ -40,13 +41,40 @@ function Signup() {
     })
   }
 
+  const sendEmail = () => {
+    Axios.post('http://localhost:3000/users/sendVerify',{
+      email: email  
+    }).then((response) => {
+      console.log(response)
+      alert(response.data) 
+    }).catch(err => {
+      alert(err.response.data) 
+    })
+  }
+
+  const cheackVerifyKey = () => {    
+    Axios.get('http://localhost:3000/users/verify',{
+      params: {
+        email: email
+      }
+    }).then((response) => {
+      setDbVerifyKey(response.data.result.key_for_verify)
+      if(DbVerifyKey === InputVerifyKey) {
+        setbtn(true)
+        alert('인증되었습니다.')
+      }
+    }).catch(err => {
+      alert(err.response.data) 
+    })
+  }
+
   return (
     <div className='signup'>
       <div className="IDinput_container">
         <div className='signup_input_id'>        
           <input 
             type="text"
-            placeholder='ID'
+            placeholder='ID(i7글자 이상으로 해주세요)'
             onChange={(e)=>{
               setid(e.target.value)
             }}
@@ -61,7 +89,7 @@ function Signup() {
     
       <div className='signup_input'>      
         <input
-          placeholder='password'
+          placeholder='Password(8글자 이상으로 해주세요.)'
           type="password" 
           onChange={(e) => {
             setpassword(e.target.value)
@@ -71,7 +99,7 @@ function Signup() {
 
       <div className='signup_input'>        
         <input 
-          placeholder='password confirm'
+          placeholder='Password confirm'
           type="password" 
           onChange={(e) => {
             setpassword_confirm(e.target.value)
@@ -89,17 +117,50 @@ function Signup() {
         />
       </div>
 
-      <div className='signup_input'>      
-        <input 
-          placeholder='email'
-          type="email"
-          onChange={(e)=>{
-            setemail(e.target.value)
-          }}         
-        />
+      <div className="IDinput_container">
+        <div className='signup_input_id'>        
+          <input 
+            type="text"
+            placeholder='Email'
+            onChange={(e)=>{
+              setemail(e.target.value)
+            }}
+          />
+        </div>
+        <div className="Duplication_btn_container">
+          <button
+            onClick={sendEmail}
+          >인증 메일 발송</button>
+        </div>
+      </div>
+
+      <div className="IDinput_container">
+        <div className='signup_input_id'>        
+          <input 
+            type="text"
+            placeholder='인증번호 입력'
+            onChange={(e)=>{
+              setInputVerifyKey(e.target.value)
+            }}
+          />
+        </div>
+        <div className="Duplication_btn_container">
+          <button
+            onClick={cheackVerifyKey}
+          >인증 번호 확인</button>
+        </div>
       </div>
       
-      <button onClick={signup} className='signup_btn'>회원 가입</button>
+      {btn ? (
+        <div className="signup_btn_container">
+          <b>인증되었습니다</b>
+          <button onClick={signup} className='signup_btn'>회원 가입</button>
+        </div>
+      ) : (
+        <div className="signup_btn_container">
+        <b>인증번호 확인을 눌러주세요</b>
+        </div>
+      )}
       
     </div>
   )

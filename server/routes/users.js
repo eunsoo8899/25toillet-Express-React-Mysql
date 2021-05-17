@@ -3,8 +3,14 @@ var router = express.Router();
 
 const db = require('../components/db')
 const model = require('../models/users');
-const crypto = require('../components/crypto');
+const crypyo_pwd = require('../components/crypto');
+const handle_email = require('../config/handle_email')
 const users_img_model = require('../models/images')
+const crypto = require('crypto')
+var key_one=crypto.randomBytes(256).toString('hex').substr(100, 5);
+var key_two=crypto.randomBytes(256).toString('base64').substr(50, 5);
+var key_for_verify=key_one+key_two; //우리가 사용할 인증코드
+
 
 router.post('/signup',async function (req, res, next) {
     const body = req.body; 
@@ -15,6 +21,7 @@ router.post('/signup',async function (req, res, next) {
 
         // users id duplicate check
         const usersResult = await model.getList({users_id:body.users_id})
+
         if(usersResult.length > 0){
             res.status(404).json('중복되는 아이디가 있습니다.')            
         } else if (body.users_pwd !== body.users_pwd_confirm){
@@ -29,7 +36,7 @@ router.post('/signup',async function (req, res, next) {
 
         delete body.users_pwd_confirm
 
-        const {salt, encodedPw} = crypto.createPasswordPbkdf2(body.users_pwd)
+        const {salt, encodedPw} = crypyo_pwd.createPasswordPbkdf2(body.users_pwd)
         console.log('salt length : ', salt.length)
         console.log('encodedPw length : ', encodedPw.length)
         body.salt = salt
@@ -59,7 +66,7 @@ router.post('/signin',async function (req, res, next) {
 
     let newResult = result[0]    
       //newResult.users_pwd : 가입시 입력한 비밀번호 + db에 저장된 salt
-    const encodedPw = crypto.getPasswordPbkdf2(body.users_pwd, newResult.salt)
+    const encodedPw = crypyo_pwd.getPasswordPbkdf2(body.users_pwd, newResult.salt)
       //encodedPw : 로그인시 입력한 비밀번호 + db에 저장된 salt
 
     //! maching password
@@ -89,9 +96,6 @@ router.get('/',async function (req, res, next) {
         }        
         const imgResult = await users_img_model.getList({users_id:users_id})
         result[0].images = imgResult
-
-        // const diResult = await deliv_info_model.getList({users_idx:users_idx})
-        // result[0].deliv_info = diResult
 
         delete result[0].users_pwd
         delete result[0].salt
@@ -145,5 +149,62 @@ router.put('/',async function (req, res, next) {
         next(err)
     }
 })
+
+router.post('/',async function (req, res, next) {
+    const body = req.body; // {name:asdf,price:200}
+    console.log('body : ', body)
+    try {
+        const connection = await db.beginTransaction()
+        const result = await model.insert(connection, body)
+        await db.commit(connection)
+        res.json({result})        
+    } catch(err){
+        console.log('err : ',err)
+        next(err)
+    }
+})
+
+
+router.post('/sendVerify', async function(req, res, next) {       
+    const body = req.body
+    handle_email.EmailVerification(body.email , key_for_verify)
+    body['key_for_verify'] = key_for_verify
+    try {
+        const connection = await db.beginTransaction()
+        const result = await model.sendEmail(connection, body)
+        await db.commit(connection)
+        res.json('인증 메일을 발송했습니다.')        
+    } catch(err){
+        res.status(404).json('Error')
+    }
+});
+
+router.get('/verify',async function (req, res, next) {
+    try {      
+        const email = req.query.email
+        const result = await model.getVerify({email:email})
+        if(result.length == 0){
+            res.status(404).json('email not found')
+        }
+        res.status(200).json({result:result[0]})
+    } catch(err){
+        res.status(404).json('Error')
+    }
+})
+
+router.put('/verify', async function(req, res, next) {   
+    const body = req.body
+    handle_email.EmailVerification(body.email , key_for_verify)
+    body['key_for_verify'] = key_for_verify
+    try {
+        const connection = await db.beginTransaction()
+        const result = await model.findAccount(connection, body)
+        await db.commit(connection)
+        res.json({result})        
+    } catch(err){
+        console.log('err : ',err)
+        next(err)
+    }
+});
 
 module.exports = router;

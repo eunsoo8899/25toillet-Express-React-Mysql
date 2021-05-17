@@ -1,6 +1,7 @@
 .Detail_container {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .Detail_container .image_container {
@@ -9,7 +10,7 @@
 }
 
 .Detail_container .image_container .detail_image {
-  width: 60%;
+  width: 80%;
 }
 
 .text_container {
