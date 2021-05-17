@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Axios from 'axios'
 import './Signup.css'
 
@@ -11,24 +11,9 @@ function Signup() {
   const [password_confirm, setpassword_confirm] = useState()
   const [name, setname] = useState()  
   const [email, setemail] = useState()
-  const [InputVerifyKey, setInputVerifyKey] = useState('2')
-  const [DbVerifyKey, setDbVerifyKey] = useState('1')
+  const [InputVerifyKey, setInputVerifyKey] = useState(1)
+  const [DbVerifyKey, setDbVerifyKey] = useState(0)
   const [btn, setbtn] = useState(false)
-
-  const signup = () => {    
-    Axios.post('http://localhost:3000/users/signup',{
-      users_id: id,
-      users_pwd: password,
-      users_pwd_confirm: password_confirm,
-      users_name: name,      
-      email: email
-    }).then((response) => {
-      console.log(response)
-      window.location.pathname = '/'
-    }).catch(err => {
-      alert(err.response.data) 
-    })
-  }
 
   const duplicate = () => {
     Axios.post('http://localhost:3000/users/duplicate',{
@@ -45,24 +30,31 @@ function Signup() {
     Axios.post('http://localhost:3000/users/sendVerify',{
       email: email  
     }).then((response) => {
-      console.log(response)
-      alert(response.data) 
+      setDbVerifyKey(response.data.key_for_verify)
+      alert('메일을 전송했습니다.')
+      console.log(DbVerifyKey)
     }).catch(err => {
       alert(err.response.data) 
     })
   }
 
-  const cheackVerifyKey = () => {    
-    Axios.get('http://localhost:3000/users/verify',{
-      params: {
-        email: email
-      }
-    }).then((response) => {
-      setDbVerifyKey(response.data.result.key_for_verify)
-      if(DbVerifyKey === InputVerifyKey) {
+  const cheackVerifyKey = () => {  
+      if (DbVerifyKey === InputVerifyKey) {
         setbtn(true)
         alert('인증되었습니다.')
-      }
+      } 
+    }
+
+  const signup = () => {    
+    Axios.post('http://localhost:3000/users/signup',{
+      users_id: id,
+      users_pwd: password,
+      users_pwd_confirm: password_confirm,
+      users_name: name,      
+      email: email
+    }).then((response) => {
+      console.log(response)
+      window.location.pathname = '/'
     }).catch(err => {
       alert(err.response.data) 
     })

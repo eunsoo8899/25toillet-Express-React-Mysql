@@ -17,12 +17,10 @@ function Signin() {
     .then((response) => {      
         console.log(response)
         sessionStorage.setItem("loggedIn", 'true')
-        sessionStorage.setItem("id", Id)
-        sessionStorage.setItem("profile", response.data[0].profile)    
+        sessionStorage.setItem("id", Id)  
         window.location.pathname = '/'  
     })
-    .catch(err => {  
-        // setError('로그인에 실패했습니다.')    
+    .catch(err => {
         alert(err.response.data)  
     })
   }

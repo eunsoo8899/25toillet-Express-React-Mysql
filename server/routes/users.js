@@ -22,16 +22,18 @@ router.post('/signup',async function (req, res, next) {
         // users id duplicate check
         const usersResult = await model.getList({users_id:body.users_id})
 
-        if(usersResult.length > 0){
-            res.status(404).json('중복되는 아이디가 있습니다.')            
+        if(!body.users_id){
+            res.status(404).json('Id를 입력 해 주세요.')            
         } else if (body.users_pwd !== body.users_pwd_confirm){
             res.status(404).json('비밀번호가 일치하지 않습니다.')
-        } else if (!body.users_name || !body.email) {
+        } else if (!body.users_name || !body.email || !body.users_id) {
             res.status(404).json('모든 항목을 입력 해 주세요.')
         } else if (body.users_id.length < 7) {
             res.status(404).json('ID는 7글자 이상 입력 해 주세요')
         } else if (body.users_pwd.length < 8) {
             res.status(404).json('password는 8글자 이상 입력 해 주세요')
+        } else if (usersResult.length > 0) {
+            res.status(404).json('중복되는 아이디가 있습니다.')
         }
 
         delete body.users_pwd_confirm
@@ -172,10 +174,14 @@ router.post('/sendVerify', async function(req, res, next) {
     try {
         const connection = await db.beginTransaction()
         const result = await model.sendEmail(connection, body)
+        if(!body.email) {
+            res.status(404).json('Email주소를 입력 해주세요.')
+        }
         await db.commit(connection)
-        res.json('인증 메일을 발송했습니다.')        
+        res.json(body)   
     } catch(err){
         res.status(404).json('Error')
+        next(err)
     }
 });
 
@@ -186,12 +192,14 @@ router.get('/verify',async function (req, res, next) {
         if(result.length == 0){
             res.status(404).json('email not found')
         }
-        res.status(200).json({result:result[0]})
+        res.json({result:result[0]})
     } catch(err){
         res.status(404).json('Error')
+        next(err)
     }
 })
 
+// id, password 변경할때 put이용해서
 router.put('/verify', async function(req, res, next) {   
     const body = req.body
     handle_email.EmailVerification(body.email , key_for_verify)

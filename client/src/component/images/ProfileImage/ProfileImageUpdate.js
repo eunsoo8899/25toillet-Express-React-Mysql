@@ -34,8 +34,7 @@ function ProfileImageUpdate() {
         users_id: id
       }
     }
-  )
-.then((response) => {
+  ).then((response) => {
   console.log(response)      
   setProfileImages(response.data.result)
 })

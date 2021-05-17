@@ -43,7 +43,7 @@ function Header() {
   useEffect(()=> {
     if(sessionStorage.getItem('loggedIn') === 'true'){
       setloggedIn(true) 
-    }
+    } 
   }, [])  
 
   const [ modalOpen, setModalOpen ] = useState(false);

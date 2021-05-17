@@ -63,6 +63,33 @@ router.post('/profileUpload',async function (req, res, next) {
   }
 })
 
+router.post('/bannerUpload',async function (req, res, next) {
+  try {
+    const form = formidable({ multiples: true })
+    form.parse(req, (err, fields, files) => {
+      if (err) {
+        next(err);
+        return;
+      }
+      const file = files.image
+      if(file){        
+        const users_id = req.query.users_id
+        const dir = path.join(__dirname,'..', `public/banner/${users_id}`)
+
+        !fs.existsSync(dir) && fs.mkdirSync(dir)
+        const newPath = `${dir}/${file.name}`
+        fs.renameSync(file.path, newPath)  //경로를 바꿔줍니다.
+        res.json({ result: `profile/${users_id}/${file.name}`});
+      } else {
+        res.status(401).json('이미지 파일을 선택하세요.')
+      }            
+    })
+  } catch(err){
+    console.log('err : ',err)
+    next(err)
+  }
+})
+
 
 router.post('/',async function (req, res, next) {
     const body = req.body; 
