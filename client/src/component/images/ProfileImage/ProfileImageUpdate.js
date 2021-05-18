@@ -21,9 +21,9 @@ function ProfileImageUpdate() {
       )
     .then((response) => {
       if(response.data.result.profile) {
-        setProfileImage(response.data.result.profile)
+        setProfileImage(`http://localhost:3000/${response.data.result.profile}`)
       } else {
-        setProfileImage('/images/admin/emptyProfile.jpg')
+        setProfileImage('https://i.pinimg.com/564x/34/c2/f9/34c2f984350ed23d1efa7094d7923c5a.jpg')
       }   
     })
   }, [id])
@@ -86,7 +86,7 @@ const ChangeProfileImage = () => {
   return (
     <div className="MainImageUpdate_container">
       <div className="PrevMainImage_container">
-        <img alt='' src={`http://localhost:3000/${ProfileImage}`}/>
+        <img alt='' src={ProfileImage}/>
       </div>
       <div className="MainImageUpdate_text">
         프로필 이미지로 변경하실 이미지를 클릭 해 주세요.

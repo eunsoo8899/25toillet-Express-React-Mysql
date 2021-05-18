@@ -13,14 +13,13 @@ module.exports.insert = async (connection, options) => {
     })  
 };
 
-module.exports.profile = async (connection, options) => {
+module.exports.banner = async (connection, options) => {
     console.log('options : ',options)    
-    let query = 'UPDATE users SET ? WHERE users_id = ?'
-    let values = options;        
+    let query = 'INSERT banner SET ?'
     return await db.query({
         connection:connection,
         query:query,
-        values:[options, options.users_id]
+        values:options
     })  
 };
 
@@ -120,6 +119,27 @@ module.exports.getListByIdx = async (options) => {
         if(images_idx) {
             query += ' WHERE images_idx = ?'
             values = images_idx
+        }
+        
+        return await db.query({
+            // connection:connection,
+            query:query,
+            values:values
+        })    
+    } catch (err) {
+        throw new Error(err)
+    }
+};
+
+module.exports.getBanner = async (options) => {
+    console.log('options : ',options)
+    try {
+        const {users_id} = options
+        let query = 'SELECT * FROM banner'
+        let values;
+        if(users_id) {
+            query += ' WHERE users_id = ? ORDER BY banner_idx DESC'
+            values = users_id
         }
         
         return await db.query({

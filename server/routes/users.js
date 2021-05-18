@@ -148,6 +148,7 @@ router.put('/',async function (req, res, next) {
         res.json('Success')        
     } catch (err){
         console.log('err : ',err)
+        res.json('fail')
         next(err)
     }
 })

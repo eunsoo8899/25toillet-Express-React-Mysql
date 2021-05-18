@@ -32,9 +32,9 @@ function Header() {
       )
     .then((response) => {
       if(response.data.result.profile) {
-        setprofilePicture(response.data.result.profile)
+        setprofilePicture(`http://localhost:3000/${response.data.result.profile}`)
       } else {
-        setprofilePicture('/images/admin/emptyProfile.jpg')
+        setprofilePicture('https://i.pinimg.com/564x/34/c2/f9/34c2f984350ed23d1efa7094d7923c5a.jpg')
       }   
     })
   }, [id])
@@ -120,7 +120,7 @@ function Header() {
           <div className='propfile_dropdown'>
             <button className='profile_btn'onClick={onClick}>
               <img 
-                src={`http://localhost:3000/${profilePicture}`}  
+                src={profilePicture}  
                 alt="" 
                 className="profile_btn"
               />

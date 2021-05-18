@@ -1,8 +1,37 @@
 .BannerContainer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   height: 55vh;
-  overflow: hidden;
+}
+
+.banner_image_container {
+  display: flex;
+  justify-content: center;
+}
+
+.banner_button_container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  width: 70vw;
+}
+
+.banner_button_container button {
+  margin: 0 5px;
+  width: 65px;
+  height: 25px;
+  border: none;
+  border: 1px solid gray;
+  border-radius: 6px;
+  background: white;
+  text-align: center;
+}
+
+.banner_button_container button:hover {
+  cursor: pointer;
+  background-color: gray;
 }
 
 .BannerContainer img {

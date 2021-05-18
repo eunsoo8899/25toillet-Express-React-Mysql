@@ -36,7 +36,7 @@ function Recently() {
   const pageCount = Math.ceil(Recently.length / imagesPerPage)
   const displayImage = Recently
     .slice(pagesVisited, pagesVisited + imagesPerPage)
-    .map((value) => {return <div className='image_card' > 
+    .map((value) => {return <div className='image_card' key={value.images_idx} > 
       <img 
         alt='' 
         src={value.images_path} 

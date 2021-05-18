@@ -56,10 +56,18 @@ function Users_page() {
           }
         }
       )
-    .then((response) => {       
-      setUserProfile(response.data.result.profile)
+    .then((response) => {
+      if(response.data.result.profile) {
+        setUserProfile(`http://localhost:3000/${response.data.result.profile}`)
+      } else {
+        setUserProfile('https://i.pinimg.com/564x/34/c2/f9/34c2f984350ed23d1efa7094d7923c5a.jpg')
+      }
+      if(response.data.result.main_image) {
+        setUserMainImage(`http://localhost:3000/${response.data.result.main_image}`)
+      } else {
+        setUserMainImage('https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg')
+      }
       setUserID(response.data.result.users_id)
-      setUserMainImage(response.data.result.main_image)
       setUserInfo(response.data.result.users_info)
     })
   }, [id])
@@ -72,15 +80,6 @@ function Users_page() {
       setOwner(true)
     }
   },[id, LoggedInUserId])
-
-  useEffect(() => {
-    if(UserProfile === null) {
-      setUserProfile('images/admin/emptyProfile.jpg')
-    }
-    if(UserMainImage === null) {
-      setUserMainImage('images/admin/emptyProfile.jpg')
-    }
-  }, [UserProfile, UserMainImage])
 
   useEffect(() => {
     Axios.get('http://localhost:3000/board',{
@@ -196,7 +195,7 @@ function Users_page() {
 
       <div className="profile_info_board_container">
         <div className="profile">
-          <img alt='' src={`http://localhost:3000/${UserMainImage}`} className="profile_mainImage"/>
+          <img alt='' src={UserMainImage} className="profile_mainImage"/>
           {Owner ? (
             <div className="main_image_btns">
               <button className="update_main_image" onClick={ openModal2 }>
@@ -216,7 +215,7 @@ function Users_page() {
           <div className="user">
 
             <div className="user_profile_pic">              
-              <img alt='' src={`http://localhost:3000/${UserProfile}`} />
+              <img alt='' src={UserProfile} />
             </div>
 
             <div className="user_proflie">

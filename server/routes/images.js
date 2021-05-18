@@ -62,7 +62,7 @@ router.post('/profileUpload',async function (req, res, next) {
     next(err)
   }
 })
-
+// 배너 업로드
 router.post('/bannerUpload',async function (req, res, next) {
   try {
     const form = formidable({ multiples: true })
@@ -79,7 +79,7 @@ router.post('/bannerUpload',async function (req, res, next) {
         !fs.existsSync(dir) && fs.mkdirSync(dir)
         const newPath = `${dir}/${file.name}`
         fs.renameSync(file.path, newPath)  //경로를 바꿔줍니다.
-        res.json({ result: `profile/${users_id}/${file.name}`});
+        res.json({ result: `banner/${users_id}/${file.name}`});
       } else {
         res.status(401).json('이미지 파일을 선택하세요.')
       }            
@@ -105,12 +105,12 @@ router.post('/',async function (req, res, next) {
     }
 })
 
-router.post('/profile',async function (req, res, next) {
+router.post('/banner',async function (req, res, next) {
 	const body = req.body; 
 	console.log('body : ', body)
 	try {
 			const connection = await db.beginTransaction()
-			const result = await model.profile(connection, body)
+			const result = await model.banner(connection, body)
 			await db.commit(connection)
 			res.json({result})        
 	} catch(err){
@@ -175,7 +175,16 @@ router.get('/detail',async function (req, res, next) {
   }        
 })
 
-
+router.get('/banner',async function (req, res, next) {
+  try {
+      const users_id = req.query.users_id
+      const result = await model.getBanner({users_id:users_id})
+      res.status(200).json({result})   
+  } catch(err){
+      console.log('err : ',err)
+      next(err)
+  }        
+})
 
 
 module.exports = router;

@@ -1,0 +1,190 @@
+.UploadPage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 800px;
+  overflow: scroll;
+}
+
+.img_select_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+.img_select_button {
+  width: 300px;
+  height: 300px;
+  cursor: pointer;
+  background-color: lightgray;
+  border: none;
+  border-radius: 3px;
+}
+
+.img_select_pic {
+  max-width: 380px;
+  max-height: 500px;
+  cursor: pointer;
+}
+.SelectFileContainer {
+  width: 50%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+}
+
+.SelectFileContainer .top {
+  /* background-color: blueviolet; */
+  flex: 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  color: gray;
+}
+
+.SelectFileContainer .top .leftSide {
+  flex: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-left: 15px;
+}
+
+.SelectFileContainer .top .rightSide {
+  flex: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 15px;
+}
+
+.SelectFileContainer .body:not(#Selected) {
+  /* background-color: pink; */
+  flex: 90%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.SelectFileContainer #Selected {
+  /* background-color: pink; */
+  flex: 90%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.SelectFileContainer .body h4 {
+  padding-bottom: 50px;
+}
+
+.SelectFileContainer .body .uploadBtn {
+  width: 120px;
+  height: 40px;
+  background-color: #075fd4;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-size: 17px;
+  display: grid;
+  place-items: center;
+}
+
+.SelectFileContainer .body .uploadBtn:hover {
+  cursor: pointer;
+}
+
+.SelectFileContainer .body .uploadBtn label {
+  cursor: pointer;
+}
+
+/* ------------------------UploadForm-------------------------------- */
+
+.uploadForm {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.uploadForm .titleContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.uploadForm .titleContainer input {
+  height: 40px;
+  border-radius: 6px;
+  border: 1px solid lightgray;
+  padding-left: 20px;
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+.uploadForm .titleContainer input:focus {
+  border: 1px solid blue;
+  outline: none;
+}
+
+.uploadForm .titleContainer label {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.uploadForm .descriptionContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.uploadForm .descriptionContainer label {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.uploadForm .descriptionContainer textarea {
+  height: 200px;
+  max-height: 200px;
+  min-height: 100px;
+  min-width: 50%;
+  max-width: 95%;
+  border-radius: 6px;
+  border: 1px solid lightgray;
+  padding-left: 15px;
+  padding-top: 15px;
+  font-size: 15px;
+  font-weight: 400;
+  margin-top: 5px;
+}
+
+.uploadForm .descriptionContainer textarea:focus {
+  border: 1px solid blue;
+  outline: none;
+}
+
+.uploadForm .upload_bttn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image_upload_bttn {
+  width: 50%;
+  height: 30px;
+  margin: 20px 10px;
+  border: none;
+  border: 1px solid gray;
+  border-radius: 4px;
+}
+
+.image_upload_bttn:hover {
+  cursor: pointer;
+  background-color: gray;
+}
