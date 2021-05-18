@@ -169,13 +169,17 @@ router.post('/',async function (req, res, next) {
 
 router.post('/sendVerify', async function(req, res, next) {       
     const body = req.body
-    handle_email.EmailVerification(body.email , key_for_verify)
+    const eamil = await model.getList({email:body.email})
     body['key_for_verify'] = key_for_verify
     try {
         const connection = await db.beginTransaction()
         const result = await model.sendEmail(connection, body)
         if(!body.email) {
             res.status(404).json('Email주소를 입력 해주세요.')
+        } else if (eamil.length > 0) {
+            res.status(404).json('중복되는 email이 있습니다.')
+        } else {
+            handle_email.EmailVerification(body.email , key_for_verify)
         }
         await db.commit(connection)
         res.json(body)   

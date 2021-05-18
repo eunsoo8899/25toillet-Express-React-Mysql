@@ -42,7 +42,9 @@ function Signup() {
       if (DbVerifyKey === InputVerifyKey) {
         setbtn(true)
         alert('인증되었습니다.')
-      } 
+      } else {
+        alert('인증 키를 다시 확인 해주세요.')
+      }
     }
 
   const signup = () => {    

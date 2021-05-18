@@ -36,7 +36,8 @@ module.exports.delete = async (connection, options) => {
 module.exports.getList = async (options) => {
     const {
         users_idx,
-        users_id
+        users_id,
+        email
     } = options
     let query = 'SELECT * FROM users '
     // let query = 'SELECT * FROM users WHERE 1=1 '
@@ -45,6 +46,10 @@ module.exports.getList = async (options) => {
     if(users_idx) {
         query += ' WHERE users_idx = ?'
         values.push(users_idx)
+    }
+    if(email) {
+        query += ' WHERE email = ?'
+        values.push(email)
     }
     if(users_id) {
         if(keys.length == 1){
