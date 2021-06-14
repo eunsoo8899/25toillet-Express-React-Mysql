@@ -1,2 +1,1 @@
-"swagger-jsdoc": "^3.7.0",
-"swagger-ui-express": "^4.1.6"
+sever에 config/DB 정보 입력해야함
