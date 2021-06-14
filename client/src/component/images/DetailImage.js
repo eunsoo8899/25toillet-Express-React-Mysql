@@ -10,7 +10,7 @@ function DetailImage(props) {
   const [UserID, setUserID] = useState()
 
   useEffect(() => {
-    Axios.get('http://localhost:3000/images/detail',{
+    Axios.get('https://api.25toillet.xyz/images/detail',{
           params: {
             images_idx: images_idx
           }
@@ -29,7 +29,7 @@ function DetailImage(props) {
     <div className="Detail_container">
 
       <div className="image_container">
-        <img src={`http://localhost:3000/${ImagesPath}`} alt="" 
+        <img src={`https://api.25toillet.xyz/${ImagesPath}`} alt="" 
           className="detail_image"
         />
       </div>

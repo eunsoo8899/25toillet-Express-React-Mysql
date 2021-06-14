@@ -24,7 +24,7 @@ function Header() {
   const onClick = () => setisActive(!isActive)
 
   useEffect(() => {
-    Axios.get('http://localhost:3000/users',{
+    Axios.get('https://api.25toillet.xyz/users',{
           params: {
             users_id: id
           }
@@ -32,7 +32,7 @@ function Header() {
       )
     .then((response) => {
       if(response.data.result.profile) {
-        setprofilePicture(`http://localhost:3000/${response.data.result.profile}`)
+        setprofilePicture(`https://api.25toillet.xyz/${response.data.result.profile}`)
       } else {
         setprofilePicture('https://i.pinimg.com/564x/34/c2/f9/34c2f984350ed23d1efa7094d7923c5a.jpg')
       }   
@@ -94,7 +94,7 @@ function Header() {
         <Link to='/'>
           <img 
             className="header_logo"            
-            src='http://localhost:5000/images/test1/25toiletLogo.png'
+            src='https://api.25toillet.xyz/images/test1/25toiletLogo.png'
             alt='logo'/>        
         </Link>
       </div>

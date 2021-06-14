@@ -12,7 +12,7 @@ function MainImageUpdate() {
   const [newMainImage, setnewMainImage] = useState('')
 
   useEffect(() => {
-    Axios.get('http://localhost:3000/users',{
+    Axios.get('https://api.25toillet.xyz/users',{
           params: {
             users_id: id
           }
@@ -20,7 +20,7 @@ function MainImageUpdate() {
       )
     .then((response) => {
       if(response.data.result.main_image) {
-        setMainImage(`http://localhost:3000/${response.data.result.main_image}`)
+        setMainImage(`https://api.25toillet.xyz/${response.data.result.main_image}`)
         // console.log(response)
       } else {
         setMainImage('https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg')

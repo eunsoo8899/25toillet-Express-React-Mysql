@@ -9,7 +9,7 @@ function Board_upload() {
   const [Constents, setConstents] = useState()
 
   const UploadBoard = () => {    
-    Axios.post('http://localhost:3000/board',{
+    Axios.post('https://api.25toillet.xyz/board',{
       board_title: Title,
       board_content: Constents,
       users_id: id

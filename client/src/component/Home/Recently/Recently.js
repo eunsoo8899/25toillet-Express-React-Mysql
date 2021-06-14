@@ -15,7 +15,7 @@ function Recently() {
   
 
   useEffect(() => {
-    Axios.get('http://localhost:3000/images/recently')
+    Axios.get('https://api.25toillet.xyz/images/recently')
     .then((response) => {
       console.log(response)
       setRecently(response.data.result)      
@@ -39,7 +39,7 @@ function Recently() {
     .map((value) => {return <div className='image_card' key={value.images_idx} > 
       <img 
         alt='' 
-        src={value.images_path} 
+        src={`https://api.25toillet.xyz/${value.images_path}`}
         className="image_card_img"
         onMouseUp={() => {
           setImagesIdx(value.images_idx)

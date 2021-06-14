@@ -9,7 +9,7 @@ function Account() {
 
   useEffect(() => {
     const id = sessionStorage.getItem('id')
-    Axios.get('http://localhost:3000/users', {
+    Axios.get('https://api.25toillet.xyz/users', {
       params:{
         users_id: id
       }
@@ -21,7 +21,7 @@ function Account() {
       name: response.data.result.users_name,      
       profile: response.data.result.profile
     })
-    setProfile_pic((`http://localhost:3000/${sessionStorage.getItem('profile')}`))
+    setProfile_pic((`https://api.25toillet.xyz/${sessionStorage.getItem('profile')}`))
     })
   }, [])
 

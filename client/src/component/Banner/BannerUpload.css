@@ -1,4 +1,4 @@
-.UploadPage {
+.banner_UploadPage {
   width: 100%;
   height: 100%;
   display: flex;
@@ -8,14 +8,20 @@
   overflow: scroll;
 }
 
-.img_select_form {
+.banner_img_select_form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: 15px;
 }
-.img_select_button {
+.banner_img_select_pic {
+  max-width: 380px;
+  max-height: 500px;
+  cursor: pointer;
+}
+
+.banner_img_select_button {
   width: 300px;
   height: 300px;
   cursor: pointer;
@@ -24,12 +30,7 @@
   border-radius: 3px;
 }
 
-.img_select_pic {
-  max-width: 380px;
-  max-height: 500px;
-  cursor: pointer;
-}
-.SelectFileContainer {
+.banner_SelectFileContainer {
   width: 50%;
   border-radius: 10px;
   display: flex;
@@ -37,7 +38,7 @@
   min-width: 400px;
 }
 
-.SelectFileContainer .top {
+.banner_SelectFileContainer .banner_top {
   /* background-color: blueviolet; */
   flex: 10%;
   width: 100%;
@@ -46,7 +47,7 @@
   color: gray;
 }
 
-.SelectFileContainer .top .leftSide {
+.banner_SelectFileContainer .banner_top .leftSide {
   flex: 50%;
   height: 100%;
   display: flex;
@@ -55,7 +56,7 @@
   padding-left: 15px;
 }
 
-.SelectFileContainer .top .rightSide {
+.banner_SelectFileContainer .banner_top .rightSide {
   flex: 50%;
   height: 100%;
   display: flex;
@@ -64,7 +65,7 @@
   padding-right: 15px;
 }
 
-.SelectFileContainer .body:not(#Selected) {
+.banner_SelectFileContainer .body:not(#Selected) {
   /* background-color: pink; */
   flex: 90%;
   width: 100%;
@@ -74,7 +75,7 @@
   flex-direction: column;
 }
 
-.SelectFileContainer #Selected {
+.banner_SelectFileContainer #Selected {
   /* background-color: pink; */
   flex: 90%;
   width: 100%;
@@ -82,11 +83,11 @@
   flex-direction: column;
 }
 
-.SelectFileContainer .body h4 {
+.banner_SelectFileContainer .body h4 {
   padding-bottom: 50px;
 }
 
-.SelectFileContainer .body .uploadBtn {
+.banner_SelectFileContainer .body .uploadBtn {
   width: 120px;
   height: 40px;
   background-color: #075fd4;
@@ -98,84 +99,29 @@
   place-items: center;
 }
 
-.SelectFileContainer .body .uploadBtn:hover {
+.banner_SelectFileContainer .body .uploadBtn:hover {
   cursor: pointer;
 }
 
-.SelectFileContainer .body .uploadBtn label {
+.banner_SelectFileContainer .body .uploadBtn label {
   cursor: pointer;
 }
 
 /* ------------------------UploadForm-------------------------------- */
 
-.uploadForm {
+.banner_uploadForm {
   display: flex;
   flex-direction: column;
   padding: 20px;
 }
 
-.uploadForm .titleContainer {
-  display: flex;
-  flex-direction: column;
-}
-
-.uploadForm .titleContainer input {
-  height: 40px;
-  border-radius: 6px;
-  border: 1px solid lightgray;
-  padding-left: 20px;
-  font-size: 18px;
-  margin-top: 5px;
-}
-
-.uploadForm .titleContainer input:focus {
-  border: 1px solid blue;
-  outline: none;
-}
-
-.uploadForm .titleContainer label {
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.uploadForm .descriptionContainer {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-}
-
-.uploadForm .descriptionContainer label {
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.uploadForm .descriptionContainer textarea {
-  height: 200px;
-  max-height: 200px;
-  min-height: 100px;
-  min-width: 50%;
-  max-width: 95%;
-  border-radius: 6px;
-  border: 1px solid lightgray;
-  padding-left: 15px;
-  padding-top: 15px;
-  font-size: 15px;
-  font-weight: 400;
-  margin-top: 5px;
-}
-
-.uploadForm .descriptionContainer textarea:focus {
-  border: 1px solid blue;
-  outline: none;
-}
-
-.uploadForm .upload_bttn {
+.banner_uploadForm .banner_upload_bttn {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.image_upload_bttn {
+.banner_image_upload_bttn {
   width: 50%;
   height: 30px;
   margin: 20px 10px;
@@ -184,7 +130,7 @@
   border-radius: 4px;
 }
 
-.image_upload_bttn:hover {
+.banner_image_upload_bttn:hover {
   cursor: pointer;
   background-color: gray;
 }

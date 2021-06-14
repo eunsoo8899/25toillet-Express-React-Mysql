@@ -13,7 +13,7 @@ function ProfileImageUpdate() {
   const [newProfileImage, setnewProfileImage] = useState('')
 
   useEffect(() => {
-    Axios.get('http://localhost:3000/users',{
+    Axios.get('https://api.25toillet.xyz/users',{
           params: {
             users_id: id
           }
@@ -21,7 +21,7 @@ function ProfileImageUpdate() {
       )
     .then((response) => {
       if(response.data.result.profile) {
-        setProfileImage(`http://localhost:3000/${response.data.result.profile}`)
+        setProfileImage(`https://api.25toillet.xyz/${response.data.result.profile}`)
       } else {
         setProfileImage('https://i.pinimg.com/564x/34/c2/f9/34c2f984350ed23d1efa7094d7923c5a.jpg')
       }   
@@ -29,7 +29,7 @@ function ProfileImageUpdate() {
   }, [id])
 
   useEffect(() => {
-    Axios.get('http://localhost:3000/profile',{
+    Axios.get('https://api.25toillet.xyz/profile',{
       params: {
         users_id: id
       }
@@ -41,7 +41,7 @@ function ProfileImageUpdate() {
 }, [id])
 
 const ChangeProfileImage = () => {
-  Axios.put('http://localhost:3000/users', {
+  Axios.put('https://api.25toillet.xyz/users', {
     users_id: id,
     profile: newProfileImage
   }).then((response) => {
@@ -65,7 +65,7 @@ const ChangeProfileImage = () => {
                           <div>
                             <img 
                               alt='' 
-                              src={`http://localhost:3000/${value.profile_path}`} 
+                              src={`https://api.25toillet.xyz/${value.profile_path}`} 
                               onMouseUp={()=>{
                                 setnewProfileImage(value.profile_path)
                               }

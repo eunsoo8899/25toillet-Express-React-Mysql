@@ -42,7 +42,7 @@ function BannerUpload() {
     const formData = new FormData()
     formData.append('image', File)
       
-    Axios.post('http://localhost:3000/images/bannerUpload',formData, {  
+    Axios.post('https://api.25toillet.xyz/images/bannerUpload',formData, {  
       params: {
         users_id: id
       }       
@@ -54,7 +54,7 @@ function BannerUpload() {
     }
     ).then((response) => {
       console.log(response.data.result)      
-        Axios.post('http://localhost:3000/images/banner',
+        Axios.post('https://api.25toillet.xyz/images/banner',
           {
             banner_image_path: response.data.result,
             users_id: id
@@ -70,17 +70,17 @@ function BannerUpload() {
 
 
   return (
-    <div className="UploadPage">
-      <div className="SelectFileContainer">
-        <div className="top">
+    <div className="banner_UploadPage">
+      <div className="banner_SelectFileContainer">
+        <div className="banner_top">
         </div>
 
-        <div className="body" id="Selected" >
-          <div className="imageSelect" >
-            <form className="img_select_form">
+        <div className="banner_body" id="Selected" >
+          <div className="banner_imageSelect" >
+            <form className="banner_img_select_form">
               {Preview ? (
                   <img 
-                    className="img_select_pic"
+                    className="banner_img_select_pic"
                     src={Preview} 
                     alt=""
                     onClick={(e) => {
@@ -89,7 +89,7 @@ function BannerUpload() {
                     }}
                   />
               ) : (
-              <button className="img_select_button"
+              <button className="banner_img_select_button"
                 onClick={(e) => {
                   e.preventDefault()
                   fileInputRef.current.click()
@@ -108,10 +108,10 @@ function BannerUpload() {
             </form>
           </div>
           
-          <div className="uploadForm"> 
-            <div className="upload_bttn">
+          <div className="banner_uploadForm"> 
+            <div className="banner_upload_bttn">
               <button 
-                className="image_upload_bttn"
+                className="banner_image_upload_bttn"
                 onClick={onSubmit}
               >Upload</button>
             </div>

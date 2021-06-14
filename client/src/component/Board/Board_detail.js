@@ -6,7 +6,7 @@ function Board_detail(props) {
   const [BoardContent, setBoardContent] = useState('')
 
   useEffect(() => {
-    Axios.get('http://localhost:3000/board/content',{
+    Axios.get('https://api.25toillet.xyz/board/content',{
           params: {
             board_idx: boardIdx
           }

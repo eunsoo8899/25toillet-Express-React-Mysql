@@ -42,7 +42,7 @@ function UploadProfile() {
     const formData = new FormData()
     formData.append('image', File)
       
-    Axios.post('http://localhost:3000/images/profileUpload',formData, {  
+    Axios.post('https://api.25toillet.xyz/images/profileUpload',formData, {  
       params: {
         users_id: id
       }       
@@ -54,7 +54,7 @@ function UploadProfile() {
     }
     ).then((response) => {
       console.log(response.data.result)      
-        Axios.post('http://localhost:3000/profile',
+        Axios.post('https://api.25toillet.xyz/profile',
           {
             profile_path: response.data.result,
             users_id: id

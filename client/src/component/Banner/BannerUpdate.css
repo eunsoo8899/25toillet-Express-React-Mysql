@@ -3,13 +3,13 @@
   flex-direction: column;
 }
 
-.PrevMainImage_container {
+.banner_PrevMainImage_container {
   display: flex;
   justify-content: center;
 }
-.PrevMainImage_container img {
-  width: 300px;
-  height: 400px;
+.banner_PrevMainImage_container img {
+  width: 400px;
+  height: 300px;
 }
 
 .MainImageUpdate_text {

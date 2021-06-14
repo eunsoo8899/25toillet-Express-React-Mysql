@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css'
 import Header from './Header/Header'
+import { Helmet } from 'react-helmet'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 // pages
@@ -10,6 +11,9 @@ import UsersPage from './Users/Users_page';
 function App() {
   return (
     <div className="app">
+      <Helmet>
+        <title>25Toillet</title>
+      </Helmet>
       
       <Router>
         <Header />        

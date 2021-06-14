@@ -12,7 +12,7 @@ function BannerUpdate() {
   const [newBanner, setnewBanner] = useState('')
 
   useEffect(() => {
-    Axios.get('http://localhost:3000/users',{
+    Axios.get('https://api.25toillet.xyz/users',{
           params: {
             users_id: id
           }
@@ -20,7 +20,7 @@ function BannerUpdate() {
       )
     .then((response) => {
       if(response.data.result.banner) {
-        setBanner(`http://localhost:3000/${response.data.result.banner}`)
+        setBanner(`https://api.25toillet.xyz/${response.data.result.banner}`)
         // console.log(response)
       } else {
         setBanner('https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg')
@@ -30,7 +30,7 @@ function BannerUpdate() {
   }, [id])
 
   useEffect(() => {
-    Axios.get('http://localhost:3000/images/banner',{
+    Axios.get('https://api.25toillet.xyz/images/banner',{
       params: {
         users_id: id
       }
@@ -43,7 +43,7 @@ function BannerUpdate() {
 }, [id])
 
 const ChangeBanner = () => {
-  Axios.put('http://localhost:3000/users', {
+  Axios.put('https://api.25toillet.xyz/users', {
     users_id: id,
     banner: newBanner
   }).then((response) => {
@@ -69,7 +69,7 @@ const ChangeBanner = () => {
                           <div>
                             <img 
                               alt='' 
-                              src={`http://localhost:3000/${value.banner_image_path}`} 
+                              src={`https://api.25toillet.xyz/${value.banner_image_path}`} 
                               onMouseUp={()=>{
                                 setnewBanner(value.banner_image_path)
                               }
@@ -86,7 +86,7 @@ const ChangeBanner = () => {
 
   return (
     <div className="MainImageUpdate_container">
-      <div className="PrevMainImage_container">
+      <div className="banner_PrevMainImage_container">
         <img alt='' src={Banner}/>
       </div>
       <div className="MainImageUpdate_text">

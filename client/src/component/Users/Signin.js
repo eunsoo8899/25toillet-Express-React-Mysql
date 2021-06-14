@@ -5,12 +5,9 @@ import Axios from 'axios'
 function Signin() {
   const [Id, setId] = useState()
   const [Password, setPassword] = useState()
-  // const [Error, setError] = useState('')
-
-  Axios.defaults.withCredentials = true
-
+  
   const signin = () => {
-    Axios.post('http://localhost:3000/users/signin',{
+    Axios.post('https://api.25toillet.xyz/users/signin',{
       users_id: Id,
       users_pwd: Password,      
     })    
@@ -21,7 +18,7 @@ function Signin() {
         window.location.pathname = '/'  
     })
     .catch(err => {
-        alert(err.response.data)  
+      alert(err.response.data)  
     })
   }
 

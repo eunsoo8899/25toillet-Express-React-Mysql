@@ -11,13 +11,13 @@ function Banner() {
   const [admin, setadmin] = useState(false)
 
   useEffect(() => {
-    Axios.get('http://localhost:3000/users', {
+    Axios.get('https://api.25toillet.xyz/users', {
       params:{
         users_id: '25toillet'
       }
     }).then((response) => {
       console.log(response)
-      setBanner(`http://localhost:3000/${response.data.result.banner}`)
+      setBanner(`https://api.25toillet.xyz/${response.data.result.banner}`)
     })
   }, [])
 
@@ -52,11 +52,11 @@ const closeModal2 = () => {
             <img alt='' src={Banner}/>
           </div>
           <div className="banner_button_container">
-            <button onClick={ openModal }>등록</button>
+            <button onClick={ openModal } className="banner_button_container_btn">등록</button>
             <ModalUpdate open={ modalOpen } close={ closeModal } header="배너 이미지 등록">
                 <BannerUpload/>
               </ModalUpdate>
-            <button onClick={ openModal2 }>변경</button>
+            <button onClick={ openModal2 } className="banner_button_container_btn">변경</button>
             <ModalUpdate open={ modalOpen2 } close={ closeModal2 } header="배너 변경">
                 <BannerUpdate/>
               </ModalUpdate>

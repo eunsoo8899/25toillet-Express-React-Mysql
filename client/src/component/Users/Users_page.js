@@ -37,7 +37,7 @@ function Users_page() {
   const { id } = useParams()    
 
   useEffect(() => {
-        Axios.get('http://localhost:3000/images/users_page',{
+        Axios.get('https://api.25toillet.xyz/images/users_page',{
           params: {
             users_id: id
           }
@@ -50,7 +50,7 @@ function Users_page() {
   }, [id])
 
   useEffect(() => {
-    Axios.get('http://localhost:3000/users',{
+    Axios.get('https://api.25toillet.xyz/users',{
           params: {
             users_id: id
           }
@@ -58,12 +58,12 @@ function Users_page() {
       )
     .then((response) => {
       if(response.data.result.profile) {
-        setUserProfile(`http://localhost:3000/${response.data.result.profile}`)
+        setUserProfile(`https://api.25toillet.xyz/${response.data.result.profile}`)
       } else {
         setUserProfile('https://i.pinimg.com/564x/34/c2/f9/34c2f984350ed23d1efa7094d7923c5a.jpg')
       }
       if(response.data.result.main_image) {
-        setUserMainImage(`http://localhost:3000/${response.data.result.main_image}`)
+        setUserMainImage(`https://api.25toillet.xyz/${response.data.result.main_image}`)
       } else {
         setUserMainImage('https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg')
       }
@@ -82,7 +82,7 @@ function Users_page() {
   },[id, LoggedInUserId])
 
   useEffect(() => {
-    Axios.get('http://localhost:3000/board',{
+    Axios.get('https://api.25toillet.xyz/board',{
           params: {
             users_id: id
           }
@@ -163,7 +163,7 @@ function Users_page() {
       return <div className='users_image_card' key={value.images_idx} id={value.users_id}> 
       <img 
         alt='' 
-        src={`http://localhost:3000/${value.images_path}`}
+        src={`https://api.25toillet.xyz/${value.images_path}`}
         onClick={ openModal5 }
         onMouseUp={()=>{
           setImagesIdx(value.images_idx)

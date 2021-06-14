@@ -103,8 +103,6 @@ app.use(
   })
 )
 
-// app.use('/auth', auth)
-
 app.use('/', indexRouter);
 app.use('/about', aboutRouter); 
 app.use('/board', boardRouter)

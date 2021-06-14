@@ -17,7 +17,7 @@
   width: 70vw;
 }
 
-.banner_button_container button {
+.banner_button_container .banner_button_container_btn {
   margin: 0 5px;
   width: 65px;
   height: 25px;
@@ -28,7 +28,7 @@
   text-align: center;
 }
 
-.banner_button_container button:hover {
+.banner_button_container .banner_button_container_btn:hover {
   cursor: pointer;
   background-color: gray;
 }
@@ -36,6 +36,6 @@
 .BannerContainer img {
   display: flex;
   justify-content: center;
-  width: 70vw;
+  width: 67vw;
   max-height: 50vh;
 }

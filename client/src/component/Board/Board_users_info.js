@@ -9,7 +9,7 @@ function Board_users_info() {
   const [UserInfo, setUserInfo] = useState('')
 
   useEffect(() => {
-    Axios.get('http://localhost:3000/users',{
+    Axios.get('https://api.25toillet.xyz/users',{
           params: {
             users_id: id
           }
@@ -21,7 +21,7 @@ function Board_users_info() {
   }, [id])
 
   const UploadBoard = () => {    
-    Axios.put('http://localhost:3000/users',{
+    Axios.put('https://api.25toillet.xyz/users',{
       users_id: id,
       users_info: Constents
     }).then((response) => {

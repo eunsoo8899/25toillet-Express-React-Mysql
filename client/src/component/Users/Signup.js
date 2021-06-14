@@ -16,7 +16,7 @@ function Signup() {
   const [btn, setbtn] = useState(false)
 
   const duplicate = () => {
-    Axios.post('http://localhost:3000/users/duplicate',{
+    Axios.post('https://api.25toillet.xyz/users/duplicate',{
       users_id: id  
     }).then((response) => {
       console.log(response)
@@ -27,7 +27,7 @@ function Signup() {
   }
 
   const sendEmail = () => {
-    Axios.post('http://localhost:3000/users/sendVerify',{
+    Axios.post('https://api.25toillet.xyz/users/sendVerify',{
       email: email  
     }).then((response) => {
       setDbVerifyKey(response.data.key_for_verify)
@@ -48,7 +48,7 @@ function Signup() {
     }
 
   const signup = () => {    
-    Axios.post('http://localhost:3000/users/signup',{
+    Axios.post('https://api.25toillet.xyz/users/signup',{
       users_id: id,
       users_pwd: password,
       users_pwd_confirm: password_confirm,
@@ -68,7 +68,7 @@ function Signup() {
         <div className='signup_input_id'>        
           <input 
             type="text"
-            placeholder='ID(i7글자 이상으로 해주세요)'
+            placeholder='ID(7글자 이상으로 해주세요)'
             onChange={(e)=>{
               setid(e.target.value)
             }}
